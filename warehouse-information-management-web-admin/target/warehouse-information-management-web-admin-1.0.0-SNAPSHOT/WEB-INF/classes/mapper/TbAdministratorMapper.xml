@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zk.warehouse.information.management.web.admin.dao.TbAdministratorDao">
+    <sql id="tbAdministratorColumns">
+        a.id,
+        a.username,
+        a.password,
+        a.phone,
+        a.email,
+        a.created,
+        a.updated
+    </sql>
+
+    <select id="selectAll" resultType="TbAdministrator">
+        SELECT
+        <include refid="tbAdministratorColumns"/>
+        FROM
+            tb_administrator as a
+    </select>
+
+    <insert id="insert">
+        INSERT INTO tb_administrator(
+            username,
+            password,
+            phone,
+            email,
+            created,
+            updated
+        )
+        VALUES
+        (
+            #{username},
+            #{password},
+            #{phone},
+            #{email},
+            #{created},
+            #{updated}
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE tb_administrator
+        SET
+            username = #{username},
+            password = #{password},
+            phone = #{phone},
+            email = #{email},
+            created = #{created},
+            updated = #{updated}
+        WHERE
+            id = #{id}
+    </update>
+
+    <select id="getByUsername" resultType="TbAdministrator">
+        SELECT 
+            <include refid="tbAdministratorColumns"/>
+        FROM
+            tb_administrator as a
+        WHERE a.username = #{username}
+    </select>
+
+    <select id="getById" resultType="TbAdministrator">
+        SELECT
+            <include refid="tbAdministratorColumns"/>
+        FROM
+            tb_administrator as a
+        WHERE
+            a.id = #{id}
+    </select>
+    
+    <delete id="deleteMulti">
+        DELETE FROM tb_administrator
+        WHERE id IN 
+        <foreach collection="array" open="(" close=")" separator="," item="id">
+            #{id}
+        </foreach>
+    </delete>
+    
+    <select id="page" resultType="TbAdministrator" parameterType="java.util.Map">
+        SELECT
+        <include refid="tbAdministratorColumns"/>
+        FROM tb_administrator AS a
+        <where>
+            <if test="tbAdministrator.username != null and tbAdministrator.username !=''">
+                AND a.username LIKE CONCAT('%',#{tbAdministrator.username},'%')
+            </if>
+            <if test="tbAdministrator.phone != null and tbAdministrator.phone !=''">
+                AND a.phone LIKE CONCAT('%',#{tbAdministrator.phone},'%')
+            </if>
+            <if test="tbAdministrator.email != null and tbAdministrator.email !=''">
+                AND a.email LIKE CONCAT('%',#{tbAdministrator.email},'%')
+            </if>
+        </where>
+        LIMIT #{start},#{length}
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM tb_administrator as a
+        <where>
+            <if test="username != null and username !=''">
+                AND a.username LIKE CONCAT('%',#{username},'%')
+            </if>
+            <if test="phone != null and phone !=''">
+                AND a.phone LIKE CONCAT('%',#{phone},'%')
+            </if>
+            <if test="email != null and email !=''">
+                AND a.email LIKE CONCAT('%',#{email},'%')
+            </if>
+        </where>
+    </select>
+</mapper>

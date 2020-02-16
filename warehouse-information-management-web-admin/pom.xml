@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>warehouse-information-management-dependencies</artifactId>
+        <groupId>com.zk</groupId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../warehouse-information-management-dependencies/pom.xml</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>warehouse-information-management-web-admin</artifactId>
+    <packaging>war</packaging>
+
+    <name>warehouse-information-management-web-admin</name>
+    <description></description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.zk</groupId>
+            <artifactId>warehouse-information-management-domain</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.zk</groupId>
+            <artifactId>warehouse-information-management-commons</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+
+        <!-- Spring Begin -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
+        <!-- Spring End -->
+
+        <!-- Servlet Begin -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+        </dependency>
+        <!-- Servlet End -->
+
+        <!-- Mybatis Begin -->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+        </dependency>
+        <!-- Mybatis End -->
+
+        <!-- Database Begin -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <!-- Database End -->
+    </dependencies>
+</project>

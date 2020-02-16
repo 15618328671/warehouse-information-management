@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>warehouse-information-management-dependencies</artifactId>
+        <groupId>com.zk</groupId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../warehouse-information-management-dependencies/pom.xml</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>warehouse-information-management-domain</artifactId>
+    <packaging>jar</packaging>
+
+    <name>warehouse-information-management-domain</name>
+    <description></description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.zk</groupId>
+            <artifactId>warehouse-information-management-commons</artifactId>
+            <version>${parent.version}</version>
+        </dependency>
+    </dependencies>
+
+</project>
