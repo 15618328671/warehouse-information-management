@@ -68,24 +68,6 @@
             a.id = #{id}
     </select>
     
-    <select id="search" resultType="TbAdministrator">
-        SELECT 
-            <include refid="tbAdministratorColumns"/>
-        FROM
-            tb_administrator as a
-        <where>
-            <if test="username != null and username !=''">
-                AND a.username LIKE CONCAT('%',#{username},'%')
-            </if>
-            <if test="phone !=null and phone !=''">
-                AND a.phone LIKE CONCAT('%',#{phone},'%')
-            </if>
-            <if test="email !=null and email !=''">
-                AND a.email LIKE CONCAT('%',#{email},'%')
-            </if>
-        </where>
-    </select>
-    
     <delete id="deleteMulti">
         DELETE FROM tb_administrator
         WHERE id IN 
