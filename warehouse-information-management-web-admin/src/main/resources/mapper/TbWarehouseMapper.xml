@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zk.warehouse.information.management.web.admin.dao.TbWarehouseDao">
+    <sql id="tbWarehouseColumns">
+        w.id,
+        w.warehouse_name AS warehouseName,
+        w.warehouse_number AS warehouseNumber,
+        w.warehouse_Inventory AS warehouseInventory,
+        w.parent_id AS parentId,
+        w.is_parent AS isParent,
+        w.sort_order AS sortOrder,
+        w.created,
+        w.updated
+    </sql>
+    <sql id="tbCargoColumns">
+        c.id,
+        c.cargo_name AS cargoName,
+        c.cargo_number AS cargoNumber,
+        c.cargo_inventory AS cargoInventory,
+        c.parent_id AS parentId,
+        c.is_parent AS isParent,
+        c.sort_order AS sortOrder,
+        c.created,
+        c.updated
+    </sql>
+    
+    <select id="selectAll" resultMap="selectAllMap">
+        SELECT
+            <include refid="tbWarehouseColumns"/>
+        FROM
+            tb_warehouse AS w
+        UNION ALL
+        SELECT
+            <include refid="tbCargoColumns"/>
+        FROM
+            tb_cargo AS c
+    </select>
+    <resultMap id="selectAllMap" type="TbWarehouse">
+        <id property="id" column="id"/>
+        <result property="warehouseName" column="warehouse_name"/>
+        <result property="warehouseNumber" column="warehouse_number"/>
+        <result property="warehouseInventory" column="warehouse_inventory"/>
+        <result property="isParent" column="is_parent"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="sortOrder" column="sort_order"/>
+        <result property="created" column="created"/>
+        <result property="updated" column="updated"/>
+        <collection property="tbCargo" ofType="TbCargo">
+            <id property="id" column="id"/>
+            <result property="cargoName" column="cargo_name"/>
+            <result property="cargoNumber" column="cargo_number"/>
+            <result property="cargoInventory" column="cargo_inventory"/>
+            <result property="isParent" column="is_parent"/>
+            <result property="parentId" column="parent_id"/>
+            <result property="sortOrder" column="sort_order"/>
+            <result property="created" column="created"/>
+            <result property="updated" column="updated"/>
+        </collection>
+    </resultMap>
+</mapper>

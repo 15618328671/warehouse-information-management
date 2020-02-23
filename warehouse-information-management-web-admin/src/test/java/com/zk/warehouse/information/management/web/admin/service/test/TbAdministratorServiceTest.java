@@ -1,7 +1,6 @@
 package com.zk.warehouse.information.management.web.admin.service.test;
 
 import com.zk.warehouse.information.management.domain.TbAdministrator;
-import com.zk.warehouse.information.management.web.admin.dao.TbAdministratorDao;
 import com.zk.warehouse.information.management.web.admin.service.TbAdministratorService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

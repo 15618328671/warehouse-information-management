@@ -84,12 +84,6 @@
             <if test="tbAdministrator.username != null and tbAdministrator.username !=''">
                 AND a.username LIKE CONCAT('%',#{tbAdministrator.username},'%')
             </if>
-            <if test="tbAdministrator.phone != null and tbAdministrator.phone !=''">
-                AND a.phone LIKE CONCAT('%',#{tbAdministrator.phone},'%')
-            </if>
-            <if test="tbAdministrator.email != null and tbAdministrator.email !=''">
-                AND a.email LIKE CONCAT('%',#{tbAdministrator.email},'%')
-            </if>
         </where>
         LIMIT #{start},#{length}
     </select>
@@ -100,12 +94,6 @@
         <where>
             <if test="username != null and username !=''">
                 AND a.username LIKE CONCAT('%',#{username},'%')
-            </if>
-            <if test="phone != null and phone !=''">
-                AND a.phone LIKE CONCAT('%',#{phone},'%')
-            </if>
-            <if test="email != null and email !=''">
-                AND a.email LIKE CONCAT('%',#{email},'%')
             </if>
         </where>
     </select>
