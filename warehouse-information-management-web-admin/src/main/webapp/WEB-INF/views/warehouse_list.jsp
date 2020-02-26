@@ -8,6 +8,7 @@
 <head>
     <title>兴仁农贸市场果菜仓库信息管理系统 | 仓库管理</title>
     <jsp:include page="../includes/header.jsp"/>
+    <link rel="stylesheet" href="../../static/assets/plugins/treeTable/themes/vsStyle/treeTable.min.css">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -41,42 +42,47 @@
 
                             <c:if test="${baseResult.status == 200}">
                                 <div class="alert alert-success alert-dismissible">
-                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                                        &times;
+                                    </button>
                                         ${baseResult.message}
                                 </div>
                             </c:if>
 
                             <div class="box-body">
-                                <a href="#" type="button" class="btn btn-sm btn-default "><i class="fa fa-plus"></i>新增</a>&nbsp;&nbsp;&nbsp;
-                                <a type="button" class="btn btn-sm btn-default " onclick="App.deleteMulti('/admin/delete')"><i class="fa fa-trash-o"></i>删除</a>&nbsp;&nbsp;&nbsp;
+                                <a href="#" type="button" class="btn btn-sm btn-default "><i
+                                        class="fa fa-plus"></i>新增</a>&nbsp;&nbsp;&nbsp;
+                                <a type="button" class="btn btn-sm btn-default "
+                                   onclick="App.deleteMulti('/admin/delete')"><i class="fa fa-trash-o"></i>删除</a>&nbsp;&nbsp;&nbsp;
                                 <a href="#" type="button" class="btn btn-sm btn-default "><i class="fa fa-upload"></i>导入</a>&nbsp;&nbsp;&nbsp;
                                 <a href="#" type="button" class="btn btn-sm btn-default "><i class="fa fa-download"></i>导出</a>
                             </div>
 
-                        <div class="box-body table-responsive no-padding">
-                            <table id="treeTable" class="table table-hover">
-                                <thead>
-                                <tr>
-                                    <th>编号</th>
-                                    <th>名称</th>
-                                    <th>排序</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <c:forEach items="${tbWarehouses}" var="tbWarehouse">
+                            <div class="box-body table-responsive no-padding">
+                                <table id="treeTable" class="table table-hover">
+                                    <thead>
                                     <tr>
-                                        <td>${tbWarehouse.number}</td>
-                                        <td>${tbWarehouse.name}</td>
-                                        <td>${tbWarehouse.sortOrder}</td>
+                                        <th>名称</th>
+                                        <th>编号</th>
+                                        <th>排序</th>
                                     </tr>
-                                </c:forEach>
-                                </tbody>
+                                    </thead>
+                                    <tbody>
+                                    <c:forEach items="${tbWarehouses}" var="tbWarehouse">
+                                        <tr id="${tbWarehouse.number}" pId="${tbWarehouse.parentId}">
+                                            <td>${tbWarehouse.name}</td>
+                                            <td>${tbWarehouse.number}</td>
+                                            <td>${tbWarehouse.sortOrder}</td>
+                                        </tr>
+                                    </c:forEach>
+                                    </tbody>
 
-                            </table>
+                                </table>
+                            </div>
+                            <!-- /.box-body -->
                         </div>
-                        <!-- /.box-body -->
+                        <!-- /.box -->
                     </div>
-                    <!-- /.box -->
                 </div>
             </div>
         </section>
@@ -87,10 +93,20 @@
 </div>
 
 <jsp:include page="../includes/footer.jsp"/>
+<script src="../../static/assets/plugins/treeTable/jquery.treeTable.min.js"></script>
 
 <!-- 自定义模态框 -->
-<sys:delete_modal />
+<sys:delete_modal/>
 <sys:detail_modal/>
+
+<script>
+    $(function () {
+        $("#treeTable").treeTable({
+            //树为两层
+            expandLevel: 2
+        });
+    })
+</script>
 </body>
 </html>
 

@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zk.warehouse.information.management.web.admin.dao.TbWarehouseDao">
     <sql id="tbWarehouseColumns">
---         w.id,
         w.name,
         w.number,
         w.inventory,
@@ -12,8 +11,8 @@
         w.created,
         w.updated
     </sql>
+
     <sql id="tbCargoColumns">
---         c.id,
         c.name,
         c.number,
         c.inventory,
@@ -23,20 +22,45 @@
         c.created,
         c.updated
     </sql>
+
+    <sql id="tbColumns">
+        name,
+        number,
+        inventory,
+        parent_id,
+        is_parent,
+        sort_order,
+        created,
+        updated
+    </sql>
     
     <select id="selectAll" resultMap="selectAllMap">
         SELECT
             <include refid="tbWarehouseColumns"/>
         FROM
-            tb_warehouse AS w
+            (SELECT
+                <include refid="tbColumns"/>
+             FROM
+                 tb_warehouse
+             ORDER BY
+                parent_id ASC,
+                is_parent ASC,
+                sort_order ASC
+            ) As w
         UNION
         SELECT
             <include refid="tbCargoColumns"/>
         FROM
-            tb_cargo AS c
+            (SELECT
+                <include refid="tbColumns"/>
+            FROM
+                tb_cargo
+            ORDER BY
+                parent_id ASC,
+                is_parent ASC,
+                sort_order ASC) As c
     </select>
     <resultMap id="selectAllMap" type="TbWarehouse">
-<!--        <id property="id" column="id"/>-->
         <result property="name" column="name"/>
         <result property="number" column="number"/>
         <result property="inventory" column="inventory"/>
@@ -46,7 +70,6 @@
         <result property="created" column="created"/>
         <result property="updated" column="updated"/>
         <association property="tbCargo" javaType="TbCargo">
-<!--            <id property="id" column="id"/>-->
             <result property="name" column="name"/>
             <result property="number" column="number"/>
             <result property="inventory" column="inventory"/>
