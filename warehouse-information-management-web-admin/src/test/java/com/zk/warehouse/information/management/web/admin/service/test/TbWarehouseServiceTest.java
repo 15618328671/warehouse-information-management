@@ -1,5 +1,6 @@
 package com.zk.warehouse.information.management.web.admin.service.test;
 
+import com.zk.warehouse.information.management.domain.TbCargo;
 import com.zk.warehouse.information.management.domain.TbWarehouse;
 import com.zk.warehouse.information.management.web.admin.dao.TbWarehouseDao;
 import com.zk.warehouse.information.management.web.admin.service.TbWarehouseService;
@@ -25,7 +26,7 @@ public class TbWarehouseServiceTest {
     public void testSelectAll(){
         List<TbWarehouse> tbWarehouses = tbWarehouseService.selectAll();
         for (TbWarehouse tbWarehouse : tbWarehouses) {
-            System.out.println(tbWarehouse);
+            System.out.println(tbWarehouse.getSortOrder());
         }
     }
 }

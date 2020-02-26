@@ -57,13 +57,19 @@
                             <table id="treeTable" class="table table-hover">
                                 <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    <th>编号</th>
                                     <th>名称</th>
                                     <th>排序</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-
+                                <c:forEach items="${tbWarehouses}" var="tbWarehouse">
+                                    <tr>
+                                        <td>${tbWarehouse.number}</td>
+                                        <td>${tbWarehouse.name}</td>
+                                        <td>${tbWarehouse.sortOrder}</td>
+                                    </tr>
+                                </c:forEach>
                                 </tbody>
 
                             </table>

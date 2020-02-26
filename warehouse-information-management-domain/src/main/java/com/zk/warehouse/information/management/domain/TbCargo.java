@@ -7,35 +7,27 @@ import com.zk.warehouse.information.management.commons.persistence.BaseEntity;
  * @date 2020/2/22-16:32
  */
 public class TbCargo extends BaseEntity {
-    private String cargoName;
-    private String cargoNumber;
-    private Double cargoInventory;
-    private String parentId;
+    private String name;
+    private String number;
     private Boolean isParent;
+    private String parentId;
+    private Double inventory;
     private Integer sortOrder;
 
-    public String getCargoName() {
-        return cargoName;
+    public String getName() {
+        return name;
     }
 
-    public void setCargoName(String cargoName) {
-        this.cargoName = cargoName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getCargoNumber() {
-        return cargoNumber;
+    public String getNumber() {
+        return number;
     }
 
-    public void setCargoNumber(String cargoNumber) {
-        this.cargoNumber = cargoNumber;
-    }
-
-    public Double getCargoInventory() {
-        return cargoInventory;
-    }
-
-    public void setCargoInventory(Double cargoInventory) {
-        this.cargoInventory = cargoInventory;
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     public String getParentId() {
@@ -52,6 +44,14 @@ public class TbCargo extends BaseEntity {
 
     public void setParent(Boolean parent) {
         isParent = parent;
+    }
+
+    public Double getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Double inventory) {
+        this.inventory = inventory;
     }
 
     public Integer getSortOrder() {
