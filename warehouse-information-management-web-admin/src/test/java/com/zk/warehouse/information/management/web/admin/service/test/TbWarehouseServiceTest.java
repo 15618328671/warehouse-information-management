@@ -29,4 +29,12 @@ public class TbWarehouseServiceTest {
             System.out.println(tbWarehouse.getSortOrder());
         }
     }
+
+    @Test
+    public void testGetNumber(){
+        List<String> name = tbWarehouseService.getName();
+        for (String s : name) {
+            System.out.println(s);
+        }
+    }
 }

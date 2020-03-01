@@ -20,12 +20,12 @@
         <!-- 文本头 -->
         <section class="content-header">
             <h1>
-                控制面板
+                欢迎界面
                 <small></small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="/main"><i class="fa fa-dashboard"></i> 首页</a></li>
-                <li class="active">控制面板</li>
+                <li class="active">欢迎界面</li>
             </ol>
         </section>
 

@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>兴仁农贸市场果菜仓库信息管理系统 | 仓库管理</title>
+    <title>兴仁农贸市场果菜仓库信息管理系统 | 内容分类</title>
     <jsp:include page="../includes/header.jsp"/>
     <link rel="stylesheet" href="../../static/assets/plugins/treeTable/themes/vsStyle/treeTable.min.css">
 </head>
@@ -23,12 +23,12 @@
         <!-- 文本头 -->
         <section class="content-header">
             <h1>
-                仓库管理
+                内容管理
                 <small></small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="/main"><i class="fa fa-dashboard"></i> 首页</a></li>
-                <li class="active">仓库列表</li>
+                <li class="active">内容分类</li>
             </ol>
         </section>
 
@@ -38,7 +38,7 @@
                 <div class="col-xs-12">
                     <div class="box">
                         <div class="box-header">
-                            <h3 class="box-title">仓库列表</h3>
+                            <h3 class="box-title">内容分类</h3>
 
                             <c:if test="${baseResult.status == 200}">
                                 <div class="alert alert-success alert-dismissible">
@@ -51,7 +51,7 @@
 
                             <div class="box-body">
                                 <a href="#" type="button" class="btn btn-sm btn-default "><i
-                                        class="fa fa-plus"></i>新增</a>&nbsp;&nbsp;&nbsp;
+                                        class="fa fa-plus"></i>新增仓库</a>&nbsp;&nbsp;&nbsp;
                                 <a type="button" class="btn btn-sm btn-default "
                                    onclick="App.deleteMulti('/admin/delete')"><i class="fa fa-trash-o"></i>删除</a>&nbsp;&nbsp;&nbsp;
                                 <a href="#" type="button" class="btn btn-sm btn-default "><i class="fa fa-upload"></i>导入</a>&nbsp;&nbsp;&nbsp;
@@ -65,6 +65,7 @@
                                         <th>名称</th>
                                         <th>编号</th>
                                         <th>排序</th>
+                                        <th>操作</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -73,6 +74,13 @@
                                             <td>${tbWarehouse.name}</td>
                                             <td>${tbWarehouse.number}</td>
                                             <td>${tbWarehouse.sortOrder}</td>
+                                            <td>
+                                                <a href="#" type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> 编辑</a>&nbsp;&nbsp;&nbsp;
+                                                <button type="button" class="btn btn-sm btn-danger" onclick=""><i class="fa fa-trash-o"></i> 删除</button>&nbsp;&nbsp;&nbsp;
+                                                <c:if test="${tbWarehouse.parent}">
+                                                    <a href="#" type="button" class="btn btn-sm btn-default"><i class="fa fa-plus"></i> 新增货物</a>
+                                                </c:if>
+                                            </td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>

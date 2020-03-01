@@ -9,6 +9,15 @@ import java.util.List;
  * @date 2020/2/22-13:56
  */
 public interface TbWarehouseService {
-    //查询仓库与货物表全部数据
+    /**
+     * 查询仓库与货物表全部数据
+     * @return
+     */
     List<TbWarehouse> selectAll();
+
+    /**
+     * 获取全部仓库名称
+     * @return
+     */
+    List<String> getName();
 }

@@ -11,6 +11,15 @@ import java.util.List;
  */
 @Repository
 public interface TbWarehouseDao {
-    //查询仓库与货物表全部数据
+    /**
+     * 查询仓库与货物表全部数据
+     * @return
+     */
     List<TbWarehouse> selectAll();
+
+    /**
+     * 获取全部仓库名称
+     * @return
+     */
+    List<String> getName();
 }

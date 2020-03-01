@@ -27,7 +27,6 @@
                 </a>
                 <ul class="treeview-menu">
                     <li class="active"><a href="/admin/list"><i class="fa fa-circle-o"></i> 管理员列表</a></li>
-                    <li class="active"><a href="/admin/form"><i class="fa fa-circle-o"></i> 新增管理员</a></li>
                     <li class="active"><a href="#"><i class="fa fa-circle-o"></i> 用户列表</a></li>
                 </ul>
             </li>
@@ -40,7 +39,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li class="active"><a href="/warehouse/list"><i class="fa fa-circle-o"></i> 内容分类</a></li>
-                    <li class="active"><a href="#"><i class="fa fa-circle-o"></i> 内容列表</a></li>
+                    <li class="active"><a href="/cargo/list"><i class="fa fa-circle-o"></i> 内容列表</a></li>
                 </ul>
             </li>
         </ul>

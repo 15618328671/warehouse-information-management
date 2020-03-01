@@ -2,6 +2,7 @@ package com.zk.warehouse.information.management.domain;
 
 import com.zk.warehouse.information.management.commons.persistence.BaseEntity;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,6 +16,10 @@ public class TbWarehouse extends BaseEntity {
     private String parentId;
     private Boolean isParent;
     private Integer sortOrder;
+    private Double entryQuantity;
+    private Date entryTime;
+    private Double deliveryQuantity;
+    private Date deliveryTime;
     //对应的货物实体类
     private TbCargo tbCargo;
 
@@ -64,6 +69,38 @@ public class TbWarehouse extends BaseEntity {
 
     public void setSortOrder(Integer sortOrder) {
         this.sortOrder = sortOrder;
+    }
+
+    public Double getEntryQuantity() {
+        return entryQuantity;
+    }
+
+    public void setEntryQuantity(Double entryQuantity) {
+        this.entryQuantity = entryQuantity;
+    }
+
+    public Date getEntryTime() {
+        return entryTime;
+    }
+
+    public void setEntryTime(Date entryTime) {
+        this.entryTime = entryTime;
+    }
+
+    public Double getDeliveryQuantity() {
+        return deliveryQuantity;
+    }
+
+    public void setDeliveryQuantity(Double deliveryQuantity) {
+        this.deliveryQuantity = deliveryQuantity;
+    }
+
+    public Date getDeliveryTime() {
+        return deliveryTime;
+    }
+
+    public void setDeliveryTime(Date deliveryTime) {
+        this.deliveryTime = deliveryTime;
     }
 
     public TbCargo getTbCargo() {

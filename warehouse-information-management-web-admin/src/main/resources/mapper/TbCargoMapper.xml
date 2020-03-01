@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zk.warehouse.information.management.web.admin.dao.TbCargoDao">
+    <sql id="tbCargoColumns">
+        c.id,
+        c.name,
+        c.number,
+        c.inventory,
+        c.parent_id,
+        c.is_parent,
+        c.sort_order,
+        c.created,
+        c.updated,
+        c.entry_quantity,
+        c.entry_time,
+        c.delivery_quantity,
+        c.delivery_time
+    </sql>
+
+    <select id="selectAll" resultType="TbCargo">
+        SELECT
+            <include refid="tbCargoColumns"/>
+        FROM
+            tb_cargo AS c
+        ORDER BY
+            parent_id ASC,
+            sort_order ASC
+    </select>
+
+    <select id="getById" resultType="TbCargo">
+        SELECT
+        <include refid="tbCargoColumns"/>
+        FROM
+        tb_cargo AS c
+        WHERE
+        a.id = #{id}
+    </select>
+</mapper>

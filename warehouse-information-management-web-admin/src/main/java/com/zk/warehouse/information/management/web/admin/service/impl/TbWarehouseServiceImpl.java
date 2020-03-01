@@ -17,12 +17,13 @@ public class TbWarehouseServiceImpl implements TbWarehouseService {
     @Autowired
     private TbWarehouseDao tbWarehouseDao;
 
-    /**
-     * 查询仓库与货物表全部数据
-     * @return
-     */
     @Override
     public List<TbWarehouse> selectAll() {
         return tbWarehouseDao.selectAll();
+    }
+
+    @Override
+    public List<String> getName() {
+        return tbWarehouseDao.getName();
     }
 }
