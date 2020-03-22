@@ -1,10 +1,13 @@
 package com.zk.warehouse.information.management.web.admin.web.controller;
 
+import com.zk.warehouse.information.management.domain.TbAdministrator;
+import com.zk.warehouse.information.management.domain.TbCargo;
 import com.zk.warehouse.information.management.domain.TbWarehouse;
 import com.zk.warehouse.information.management.web.admin.service.TbWarehouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -19,6 +22,18 @@ import java.util.List;
 public class WarehouseController {
     @Autowired
     private TbWarehouseService tbWarehouseService;
+
+    @ModelAttribute
+    public TbWarehouse getTbWarehouseById(Long id){
+        TbWarehouse tbWarehouse = null;
+        if (id != null){
+            tbWarehouse = tbWarehouseService.getById(id);
+        }
+        else {
+            tbWarehouse = new TbWarehouse();
+        }
+        return tbWarehouse;
+    }
 
     @RequestMapping(value = "list",method = RequestMethod.GET)
     public String list(Model model){
@@ -44,9 +59,9 @@ public class WarehouseController {
                 targetList.add(tbWarehouse);
 
                 //判断是否有子节点
-                if (tbWarehouse.getParent()){
+                if (tbWarehouse.getIsParent()){
                     for (TbWarehouse warehouse : sourceList) {
-                        if (warehouse.getParentId().equals(tbWarehouse.getNumber())){
+                        if (warehouse.getParentId().equals(tbWarehouse.getName())){
                             sortList(sourceList,targetList,warehouse.getParentId());
                             break;
                         }
@@ -54,5 +69,10 @@ public class WarehouseController {
                 }
             }
         }
+    }
+
+    @RequestMapping(value = "form",method = RequestMethod.GET)
+    public String form(){
+        return "warehouse_form";
     }
 }

@@ -18,8 +18,21 @@ public interface TbWarehouseDao {
     List<TbWarehouse> selectAll();
 
     /**
+     * 通过id获取仓库信息
+     * @param id
+     * @return
+     */
+    TbWarehouse getById(Long id);
+
+    /**
      * 获取全部仓库名称
      * @return
      */
     List<String> getName();
+
+    /**
+     * 获取仓库名称的相应编号
+     * @return
+     */
+    String getNumberByName(String name);
 }

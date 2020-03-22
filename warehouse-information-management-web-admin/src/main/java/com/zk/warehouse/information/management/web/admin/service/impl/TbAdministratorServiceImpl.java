@@ -3,6 +3,7 @@ package com.zk.warehouse.information.management.web.admin.service.impl;
 import com.zk.warehouse.information.management.commons.dto.BaseResult;
 import com.zk.warehouse.information.management.commons.dto.PageInfo;
 import com.zk.warehouse.information.management.commons.utils.RegexUtils;
+import com.zk.warehouse.information.management.commons.validator.BeanValidator;
 import com.zk.warehouse.information.management.domain.TbAdministrator;
 import com.zk.warehouse.information.management.web.admin.dao.TbAdministratorDao;
 import com.zk.warehouse.information.management.web.admin.service.TbAdministratorService;
@@ -46,9 +47,13 @@ public class TbAdministratorServiceImpl implements TbAdministratorService {
 
     @Override
     public BaseResult save(TbAdministrator tbAdministrator) {
-        BaseResult baseResult = checkTbAdministrator(tbAdministrator);
-        //通过验证
-        if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS){
+        String validator = BeanValidator.validator(tbAdministrator);
+        //Validation验证不通过
+        if (validator != null){
+            return BaseResult.fail(validator);
+        }
+        //Validation验证通过
+        else {
             tbAdministrator.setUpdated(new Date());
 
             //新增用户
@@ -64,11 +69,8 @@ public class TbAdministratorServiceImpl implements TbAdministratorService {
                 tbAdministrator.setPassword(DigestUtils.md5DigestAsHex(tbAdministrator.getUsername().getBytes()));
                 tbAdministratorDao.update(tbAdministrator);
             }
-
-            baseResult.setMessage("保存管理员信息成功");
+            return BaseResult.success("保存用户信息成功");
         }
-
-        return baseResult;
     }
 
     @Override
@@ -108,32 +110,21 @@ public class TbAdministratorServiceImpl implements TbAdministratorService {
         return tbAdministratorDao.count(tbAdministrator);
     }
 
-
     /**
-     * 用户信息的有效性验证
-     *
+     * 重复性验证
      * @param tbAdministrator
+     * @return
      */
-    private BaseResult checkTbAdministrator(TbAdministrator tbAdministrator) {
+    private BaseResult checkAdministrator(TbAdministrator tbAdministrator){
         BaseResult baseResult = BaseResult.success();
-        //非空验证
-        if (StringUtils.isBlank(tbAdministrator.getUsername())){
-            baseResult = BaseResult.fail("用户名不能为空，请重新输入");
+        if (tbAdministratorDao.countUsername(tbAdministrator.getUsername())>0){
+            baseResult = BaseResult.fail("用户名已存在请重新输入");
         }
-        else if (StringUtils.isBlank(tbAdministrator.getPassword())){
-            baseResult = BaseResult.fail("密码不能为空，请重新输入");
+        else if (tbAdministratorDao.countPhone(tbAdministrator.getPhone())>0){
+            baseResult = BaseResult.fail("手机号已注册请重新输入");
         }
-        else if (StringUtils.isBlank(tbAdministrator.getPhone())){
-            baseResult = BaseResult.fail("手机号不能为空，请重新输入");
-        }
-        else if (RegexUtils.checkPhone(tbAdministrator.getPhone())){
-            baseResult = BaseResult.fail("手机号格式不正确，请重新输入");
-        }
-        else if(StringUtils.isBlank(tbAdministrator.getEmail())){
-            baseResult = BaseResult.fail("邮箱地址不能为空，请重新输入");
-        }
-        else if (RegexUtils.checkEmail(tbAdministrator.getEmail())){
-            baseResult = BaseResult.fail("邮箱地址格式不正确，请重新输入");
+        else if (tbAdministratorDao.countEmail(tbAdministrator.getEmail())>0){
+            baseResult = BaseResult.fail("邮箱已注册请重新输入");
         }
         return baseResult;
     }

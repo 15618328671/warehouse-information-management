@@ -37,4 +37,10 @@ public class TbWarehouseServiceTest {
             System.out.println(s);
         }
     }
+
+    @Test
+    public void testGetNumberByName(){
+        String number = tbWarehouseService.getNumberByName("水果仓库");
+        System.out.println(number);
+    }
 }

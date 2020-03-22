@@ -23,7 +23,19 @@ public class TbWarehouseServiceImpl implements TbWarehouseService {
     }
 
     @Override
+    public TbWarehouse getById(Long id) {
+        return tbWarehouseDao.getById(id);
+    }
+
+    @Override
     public List<String> getName() {
         return tbWarehouseDao.getName();
     }
+
+    @Override
+    public String getNumberByName(String name) {
+        return tbWarehouseDao.getNumberByName(name);
+    }
+
+
 }

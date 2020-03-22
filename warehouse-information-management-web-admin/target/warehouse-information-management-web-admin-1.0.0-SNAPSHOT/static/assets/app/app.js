@@ -39,7 +39,7 @@ var App = function () {
     };
 
     /**
-     * 删除（未完成）
+     * 删除
      */
     var handleDelete = function (url) {
         $("#modal-default").modal("show");
