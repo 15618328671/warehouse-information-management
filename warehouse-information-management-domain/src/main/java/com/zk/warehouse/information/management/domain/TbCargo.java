@@ -2,10 +2,8 @@ package com.zk.warehouse.information.management.domain;
 
 import com.zk.warehouse.information.management.commons.persistence.BaseEntity;
 import lombok.Data;
-import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
@@ -26,8 +24,10 @@ public class TbCargo extends BaseEntity {
     private Double inventory;
     @NotNull(message = "货物名排序不能为空")
     private Integer sortOrder;
+    @NotNull(message = "入库数量不能为空")
     private Double entryQuantity;
     private Date entryTime;
+    @NotNull(message = "出库数量不能为空")
     private Double deliveryQuantity;
     private Date deliveryTime;
 }

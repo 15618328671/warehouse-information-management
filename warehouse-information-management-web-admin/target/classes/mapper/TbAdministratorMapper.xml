@@ -15,7 +15,7 @@
         SELECT
         <include refid="tbAdministratorColumns"/>
         FROM
-            tb_administrator as a
+        tb_administrator as a
     </select>
 
     <insert id="insert">
@@ -52,30 +52,30 @@
     </update>
 
     <select id="getByUsername" resultType="TbAdministrator">
-        SELECT 
-            <include refid="tbAdministratorColumns"/>
+        SELECT
+        <include refid="tbAdministratorColumns"/>
         FROM
-            tb_administrator as a
+        tb_administrator as a
         WHERE a.username = #{username}
     </select>
 
     <select id="getById" resultType="TbAdministrator">
         SELECT
-            <include refid="tbAdministratorColumns"/>
+        <include refid="tbAdministratorColumns"/>
         FROM
-            tb_administrator as a
+        tb_administrator as a
         WHERE
-            a.id = #{id}
+        a.id = #{id}
     </select>
-    
+
     <delete id="deleteMulti">
         DELETE FROM tb_administrator
-        WHERE id IN 
+        WHERE id IN
         <foreach collection="array" open="(" close=")" separator="," item="id">
             #{id}
         </foreach>
     </delete>
-    
+
     <select id="page" resultType="TbAdministrator" parameterType="java.util.Map">
         SELECT
         <include refid="tbAdministratorColumns"/>
@@ -112,28 +112,37 @@
 
     <select id="countUsername" resultType="integer">
         SELECT
-            COUNT(*)
+        COUNT(*)
         FROM
-            tb_administrator AS a
+        tb_administrator AS a
         WHERE
-            a.username = #{username}
+        a.username = #{username}
+        <if test="id != null and id !=''">
+            AND a.id &lt;&gt; #{id}
+        </if>
     </select>
 
     <select id="countPhone" resultType="integer">
         SELECT
-            COUNT(*)
+        COUNT(*)
         FROM
-            tb_administrator AS a
+        tb_administrator AS a
         WHERE
-            a.phone = #{phone}
+        a.phone = #{phone}
+        <if test="id != null and id !=''">
+            AND a.id &lt;&gt; #{id}
+        </if>
     </select>
 
     <select id="countEmail" resultType="integer">
         SELECT
-            COUNT(*)
+        COUNT(*)
         FROM
-            tb_administrator AS a
+        tb_administrator AS a
         WHERE
-            a.email = #{email}
+        a.email = #{email}
+        <if test="id != null and id !=''">
+            AND a.id &lt;&gt; #{id}
+        </if>
     </select>
 </mapper>

@@ -1,5 +1,6 @@
 package com.zk.warehouse.information.management.web.admin.service;
 
+import com.zk.warehouse.information.management.commons.dto.BaseResult;
 import com.zk.warehouse.information.management.domain.TbWarehouse;
 
 import java.util.List;
@@ -21,6 +22,13 @@ public interface TbWarehouseService {
      * @return
      */
     TbWarehouse getById(Long id);
+
+    /**
+     * 保存仓库信息
+     * @param tbWarehouse
+     * @return
+     */
+    BaseResult save(TbWarehouse tbWarehouse);
 
     /**
      * 获取全部仓库名称

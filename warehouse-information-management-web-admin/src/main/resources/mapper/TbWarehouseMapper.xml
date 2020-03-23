@@ -113,6 +113,46 @@
             id = #{id}
     </select>
 
+    <insert id="insert">
+        INSERT INTO tb_warehouse(
+            <include refid="tbColumns"/>,
+            capacity
+        )
+        VALUES (
+            #{name},
+            #{number},
+            #{inventory},
+            #{parentId},
+            #{isParent},
+            #{sortOrder},
+            #{created},
+            #{updated},
+            #{entryQuantity},
+            #{entryTime},
+            #{deliveryQuantity},
+            #{deliveryTime},
+            #{capacity}
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE tb_warehouse
+        SET
+            name = #{name},
+            number = #{number},
+            inventory = #{inventory},
+            parent_id = #{parentId},
+            is_parent = #{isParent},
+            sort_order = #{sortOrder},
+            created = #{created},
+            updated = #{updated},
+            entry_quantity = #{entryQuantity},
+            entry_time = #{entryTime},
+            delivery_quantity = #{deliveryQuantity},
+            delivery_time = #{deliveryTime},
+            capacity = #{capacity}
+    </update>
+
     <select id="getName" resultType="java.lang.String">
         SELECT
             w.name
@@ -127,5 +167,29 @@
             tb_warehouse AS w
         WHERE
             w.name = #{name}
+    </select>
+
+    <select id="countName" resultType="integer">
+        SELECT
+            COUNT (*)
+        FROM
+            tb_warehouse
+        WHERE
+            name = #{name}
+            <if test="id != null and id !=''">
+            AND a.id &lt;&gt; #{id}
+            </if>
+    </select>
+
+    <select id="countNumber" resultType="integer">
+        SELECT
+        COUNT (*)
+        FROM
+        tb_warehouse
+        WHERE
+        number = #{number}
+        <if test="id != null and id !=''">
+            AND a.id &lt;&gt; #{id}
+        </if>
     </select>
 </mapper>

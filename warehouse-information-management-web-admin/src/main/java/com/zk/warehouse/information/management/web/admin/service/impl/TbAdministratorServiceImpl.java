@@ -49,27 +49,33 @@ public class TbAdministratorServiceImpl implements TbAdministratorService {
     public BaseResult save(TbAdministrator tbAdministrator) {
         String validator = BeanValidator.validator(tbAdministrator);
         //Validation验证不通过
-        if (validator != null){
+        if (validator != null) {
             return BaseResult.fail(validator);
         }
         //Validation验证通过
         else {
-            tbAdministrator.setUpdated(new Date());
+            BaseResult baseResult = checkAdministrator(tbAdministrator);
+            if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
 
-            //新增用户
-            if (tbAdministrator.getId() == null) {
-                //md5密码加密处理
-                tbAdministrator.setPassword(DigestUtils.md5DigestAsHex(tbAdministrator.getUsername().getBytes()));
-                tbAdministrator.setCreated(new Date());
-                tbAdministratorDao.insert(tbAdministrator);
+                tbAdministrator.setUpdated(new Date());
+                //新增用户
+                if (tbAdministrator.getId() == null) {
+
+                    //md5密码加密处理
+                    tbAdministrator.setPassword(DigestUtils.md5DigestAsHex(tbAdministrator.getUsername().getBytes()));
+                    tbAdministrator.setCreated(new Date());
+                    tbAdministratorDao.insert(tbAdministrator);
+                }
+                //编辑用户
+                else {
+                    //md5密码加密处理
+                    tbAdministrator.setPassword(DigestUtils.md5DigestAsHex(tbAdministrator.getUsername().getBytes()));
+                    tbAdministratorDao.update(tbAdministrator);
+                }
+                return BaseResult.success("保存用户信息成功");
+            } else {
+                return baseResult;
             }
-            //编辑用户
-            else {
-                //md5密码加密处理
-                tbAdministrator.setPassword(DigestUtils.md5DigestAsHex(tbAdministrator.getUsername().getBytes()));
-                tbAdministratorDao.update(tbAdministrator);
-            }
-            return BaseResult.success("保存用户信息成功");
         }
     }
 
@@ -89,12 +95,12 @@ public class TbAdministratorServiceImpl implements TbAdministratorService {
     }
 
     @Override
-    public PageInfo<TbAdministrator> page(int start, int length,int draw,TbAdministrator tbAdministrator) {
+    public PageInfo<TbAdministrator> page(int start, int length, int draw, TbAdministrator tbAdministrator) {
         int count = tbAdministratorDao.count(tbAdministrator);
-        Map<String,Object> params = new HashMap<>();
-        params.put("start",start);
-        params.put("length",length);
-        params.put("tbAdministrator",tbAdministrator);
+        Map<String, Object> params = new HashMap<>();
+        params.put("start", start);
+        params.put("length", length);
+        params.put("tbAdministrator", tbAdministrator);
 
         PageInfo<TbAdministrator> pageInfo = new PageInfo<>();
         pageInfo.setDraw(draw);
@@ -115,16 +121,14 @@ public class TbAdministratorServiceImpl implements TbAdministratorService {
      * @param tbAdministrator
      * @return
      */
-    private BaseResult checkAdministrator(TbAdministrator tbAdministrator){
+    private BaseResult checkAdministrator(TbAdministrator tbAdministrator) {
         BaseResult baseResult = BaseResult.success();
-        if (tbAdministratorDao.countUsername(tbAdministrator.getUsername())>0){
-            baseResult = BaseResult.fail("用户名已存在请重新输入");
-        }
-        else if (tbAdministratorDao.countPhone(tbAdministrator.getPhone())>0){
-            baseResult = BaseResult.fail("手机号已注册请重新输入");
-        }
-        else if (tbAdministratorDao.countEmail(tbAdministrator.getEmail())>0){
-            baseResult = BaseResult.fail("邮箱已注册请重新输入");
+        if (tbAdministratorDao.countUsername(tbAdministrator) > 0) {
+            baseResult = BaseResult.fail("用户名已存在,请重新输入");
+        } else if (tbAdministratorDao.countPhone(tbAdministrator) > 0) {
+            baseResult = BaseResult.fail("手机号已注册,请重新输入");
+        } else if (tbAdministratorDao.countEmail(tbAdministrator) > 0) {
+            baseResult = BaseResult.fail("邮箱已注册,请重新输入");
         }
         return baseResult;
     }

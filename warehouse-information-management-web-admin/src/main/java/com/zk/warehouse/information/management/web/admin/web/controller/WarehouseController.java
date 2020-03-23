@@ -1,5 +1,6 @@
 package com.zk.warehouse.information.management.web.admin.web.controller;
 
+import com.zk.warehouse.information.management.commons.dto.BaseResult;
 import com.zk.warehouse.information.management.domain.TbAdministrator;
 import com.zk.warehouse.information.management.domain.TbCargo;
 import com.zk.warehouse.information.management.domain.TbWarehouse;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,5 +76,19 @@ public class WarehouseController {
     @RequestMapping(value = "form",method = RequestMethod.GET)
     public String form(){
         return "warehouse_form";
+    }
+
+    @RequestMapping(value = "save",method = RequestMethod.GET)
+    public String save(TbWarehouse tbWarehouse, RedirectAttributes redirectAttributes){
+        BaseResult baseResult = tbWarehouseService.save(tbWarehouse);
+        //保存成功
+        if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS){
+            redirectAttributes.addFlashAttribute("baseResult",baseResult);
+            return "redirect:/warehouse/list";
+        }
+        //保存失败
+        else {
+            return "warehouse_form";
+        }
     }
 }

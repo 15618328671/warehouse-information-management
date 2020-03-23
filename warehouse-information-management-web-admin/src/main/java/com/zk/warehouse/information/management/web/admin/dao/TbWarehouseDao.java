@@ -24,11 +24,29 @@ public interface TbWarehouseDao {
      */
     TbWarehouse getById(Long id);
 
+    void insert(TbWarehouse tbWarehouse);
+
+    void update(TbWarehouse tbWarehouse);
+
     /**
      * 获取全部仓库名称
      * @return
      */
     List<String> getName();
+
+    /**
+     * 仓库名是否存在
+     * @param tbWarehouse
+     * @return
+     */
+    int countName(TbWarehouse tbWarehouse);
+
+    /**
+     * 仓库编号是否存在
+     * @param tbWarehouse
+     * @return
+     */
+    int countNumber(TbWarehouse tbWarehouse);
 
     /**
      * 获取仓库名称的相应编号

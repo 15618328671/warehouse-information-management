@@ -97,6 +97,9 @@
             tb_cargo AS c
         WHERE
             c.name = #{name}
+            <if test="id != null and id !=''">
+            AND a.id &lt;&gt; #{id}
+            </if>
     </select>
 
     <select id="countNumber" resultType="integer">
@@ -106,6 +109,9 @@
             tb_cargo AS c
         WHERE
             c.number = #{number}
+            <if test="id != null and id !=''">
+            AND a.id &lt;&gt; #{id}
+            </if>
     </select>
 
     <select id="page" resultType="TbCargo" parameterType="map">

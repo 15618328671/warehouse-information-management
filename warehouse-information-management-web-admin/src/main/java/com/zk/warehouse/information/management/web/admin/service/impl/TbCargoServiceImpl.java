@@ -37,17 +37,17 @@ public class TbCargoServiceImpl implements TbCargoService {
     public BaseResult save(TbCargo tbCargo) {
         String validator = BeanValidator.validator(tbCargo);
         //Validation验证不通过
-        if (validator != null){
+        if (validator != null) {
             return BaseResult.fail(validator);
         }
         //Validation验证通过
         else {
+            tbCargo.setUpdated(new Date());
             BaseResult baseResult = checkCargo(tbCargo);
-            //通过重复判断
             if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
-                tbCargo.setUpdated(new Date());
                 //新增货物
                 if (tbCargo.getId() == null) {
+                    //通过重复判断
                     tbCargo.setIsParent(false);
                     tbCargo.setCreated(new Date());
                     tbCargoDao.insert(tbCargo);
@@ -56,9 +56,11 @@ public class TbCargoServiceImpl implements TbCargoService {
                 else {
                     tbCargoDao.update(tbCargo);
                 }
-                baseResult.setMessage("保存货物信息成功");
+                return BaseResult.success("保存货物信息成功");
             }
-            return baseResult;
+            else {
+                return baseResult;
+            }
         }
     }
 
@@ -70,10 +72,10 @@ public class TbCargoServiceImpl implements TbCargoService {
     @Override
     public PageInfo<TbCargo> page(int start, int length, int draw, TbCargo tbCargo) {
         int count = tbCargoDao.count(tbCargo);
-        Map<String,Object> params = new HashMap<>();
-        params.put("start",start);
-        params.put("length",length);
-        params.put("tbCargo",tbCargo);
+        Map<String, Object> params = new HashMap<>();
+        params.put("start", start);
+        params.put("length", length);
+        params.put("tbCargo", tbCargo);
 
         PageInfo<TbCargo> pageInfo = new PageInfo<>();
         pageInfo.setDraw(draw);
@@ -96,19 +98,19 @@ public class TbCargoServiceImpl implements TbCargoService {
 
     /**
      * 货物重复性验证
+     *
      * @param tbCargo
      * @return
      */
-    private BaseResult checkCargo(TbCargo tbCargo){
+    private BaseResult checkCargo(TbCargo tbCargo) {
         BaseResult baseResult = BaseResult.success();
-        if (tbCargo.getParentId().equals("NONE")){
+        if (tbCargo.getParentId().equals("NONE")) {
             baseResult = BaseResult.fail("请选择所属仓库");
         }
         //重复判断
-        else if (tbCargoDao.countName(tbCargo.getName())>0){
+        else if (tbCargoDao.countName(tbCargo) > 0) {
             baseResult = BaseResult.fail("货物已经存在，请重新输入");
-        }
-        else if (tbCargoDao.countNumber(tbCargo.getNumber())>0){
+        } else if (tbCargoDao.countNumber(tbCargo) > 0) {
             baseResult = BaseResult.fail("货物编号已经存在，请重新输入");
         }
         return baseResult;

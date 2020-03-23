@@ -23,11 +23,6 @@ public class TbCargoServiceTest {
     private TbCargoDao tbCargoDao;
 
     @Test
-    public void testCountName(){
-        System.out.println(tbCargoDao.countName("苹果"));
-    }
-
-    @Test
     public void testInsert(){
         TbCargo tbCargo = new TbCargo();
         tbCargo.setCreated(new Date());

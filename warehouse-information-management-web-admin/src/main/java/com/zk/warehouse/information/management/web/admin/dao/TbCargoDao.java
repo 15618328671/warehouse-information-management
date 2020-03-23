@@ -12,15 +12,15 @@ import org.springframework.stereotype.Repository;
 public interface TbCargoDao extends BaseDao<TbCargo> {
     /**
      * 查询货物名是否存在
-     * @param name
+     * @param tbCargo
      * @return
      */
-    int countName(String name);
+    int countName(TbCargo tbCargo);
 
     /**
      * 查询货物编号是否存在
-     * @param number
+     * @param tbCargo
      * @return
      */
-    int countNumber(String number);
+    int countNumber(TbCargo tbCargo);
 }
