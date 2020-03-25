@@ -41,4 +41,10 @@ public interface TbWarehouseService {
      * @return
      */
     String getNumberByName(String name);
+
+    /**
+     * 根据仓库名称删除信息
+     * @param name
+     */
+    void delete(String name);
 }

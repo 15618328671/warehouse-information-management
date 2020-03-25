@@ -5,6 +5,7 @@ import com.zk.warehouse.information.management.domain.TbAdministrator;
 import com.zk.warehouse.information.management.domain.TbCargo;
 import com.zk.warehouse.information.management.domain.TbWarehouse;
 import com.zk.warehouse.information.management.web.admin.service.TbWarehouseService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -78,8 +79,8 @@ public class WarehouseController {
         return "warehouse_form";
     }
 
-    @RequestMapping(value = "save",method = RequestMethod.GET)
-    public String save(TbWarehouse tbWarehouse, RedirectAttributes redirectAttributes){
+    @RequestMapping(value = "save",method = RequestMethod.POST)
+    public String save(TbWarehouse tbWarehouse, RedirectAttributes redirectAttributes,Model model){
         BaseResult baseResult = tbWarehouseService.save(tbWarehouse);
         //保存成功
         if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS){
@@ -88,7 +89,24 @@ public class WarehouseController {
         }
         //保存失败
         else {
+            model.addAttribute("baseResult",baseResult);
             return "warehouse_form";
         }
+    }
+
+    @RequestMapping(value = "delete",method = RequestMethod.POST)
+    public BaseResult delete(String name){
+        if (name != null){
+            tbWarehouseService.delete(name);
+            return BaseResult.success("删除成功");
+        }
+        else {
+            return BaseResult.fail("删除失败");
+        }
+    }
+
+    @RequestMapping(value = "detail",method = RequestMethod.GET)
+    public String detail(TbWarehouse tbWarehouse){
+        return "warehouse_detail";
     }
 }

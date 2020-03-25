@@ -38,6 +38,7 @@ public class CargoController {
             tbCargo = tbCargoService.getById(id);
         }
         else {
+
             tbCargo = new TbCargo();
         }
         return tbCargo;
@@ -132,5 +133,10 @@ public class CargoController {
             baseResult = BaseResult.fail("删除失败");
         }
         return baseResult;
+    }
+
+    @RequestMapping(value = "detail",method = RequestMethod.GET)
+    public String detail(TbCargo tbCargo){
+        return "cargo_detail";
     }
 }

@@ -44,6 +44,8 @@ public class TbWarehouseServiceImpl implements TbWarehouseService {
                 tbWarehouse.setUpdated(new Date());
                 //新增仓库
                 if (tbWarehouse.getId() == null){
+                    tbWarehouse.setIsParent(true);
+                    tbWarehouse.setParentId("0");
                     tbWarehouse.setCreated(new Date());
                     tbWarehouseDao.insert(tbWarehouse);
                 }
@@ -68,6 +70,11 @@ public class TbWarehouseServiceImpl implements TbWarehouseService {
     @Override
     public String getNumberByName(String name) {
         return tbWarehouseDao.getNumberByName(name);
+    }
+
+    @Override
+    public void delete(String name) {
+        tbWarehouseDao.delete(name);
     }
 
     /**

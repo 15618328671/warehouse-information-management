@@ -42,6 +42,13 @@ public interface TbWarehouseDao {
     int countName(TbWarehouse tbWarehouse);
 
     /**
+     * 根据name判断仓库名是否存在
+     * @param name
+     * @return
+     */
+    int countByName(String name);
+
+    /**
      * 仓库编号是否存在
      * @param tbWarehouse
      * @return
@@ -53,4 +60,10 @@ public interface TbWarehouseDao {
      * @return
      */
     String getNumberByName(String name);
+
+    /**
+     * 根据仓库名称删除
+     * @param name
+     */
+    void delete(String name);
 }

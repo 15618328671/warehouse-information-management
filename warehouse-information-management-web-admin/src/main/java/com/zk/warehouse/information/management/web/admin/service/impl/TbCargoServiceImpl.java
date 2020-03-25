@@ -5,6 +5,7 @@ import com.zk.warehouse.information.management.commons.dto.PageInfo;
 import com.zk.warehouse.information.management.commons.validator.BeanValidator;
 import com.zk.warehouse.information.management.domain.TbCargo;
 import com.zk.warehouse.information.management.web.admin.dao.TbCargoDao;
+import com.zk.warehouse.information.management.web.admin.dao.TbWarehouseDao;
 import com.zk.warehouse.information.management.web.admin.service.TbCargoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,9 @@ import java.util.Map;
 public class TbCargoServiceImpl implements TbCargoService {
     @Autowired
     private TbCargoDao tbCargoDao;
+
+    @Autowired
+    private TbWarehouseDao tbWarehouseDao;
 
     @Override
     public List<TbCargo> selectAll() {
@@ -50,6 +54,7 @@ public class TbCargoServiceImpl implements TbCargoService {
                     //通过重复判断
                     tbCargo.setIsParent(false);
                     tbCargo.setCreated(new Date());
+                    tbCargo.setInventory(0D);
                     tbCargoDao.insert(tbCargo);
                 }
                 //编辑货物
@@ -110,7 +115,11 @@ public class TbCargoServiceImpl implements TbCargoService {
         //重复判断
         else if (tbCargoDao.countName(tbCargo) > 0) {
             baseResult = BaseResult.fail("货物已经存在，请重新输入");
-        } else if (tbCargoDao.countNumber(tbCargo) > 0) {
+        }
+        else if(tbWarehouseDao.countByName(tbCargo.getName())>0){
+            baseResult = BaseResult.fail("货物名不能与仓库名相同，请重新输入");
+        }
+        else if (tbCargoDao.countNumber(tbCargo) > 0) {
             baseResult = BaseResult.fail("货物编号已经存在，请重新输入");
         }
         return baseResult;
