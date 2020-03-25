@@ -98,7 +98,7 @@
         WHERE
             c.name = #{name}
             <if test="id != null and id !=''">
-            AND a.id &lt;&gt; #{id}
+            AND c.id &lt;&gt; #{id}
             </if>
     </select>
 
@@ -110,7 +110,7 @@
         WHERE
             c.number = #{number}
             <if test="id != null and id !=''">
-            AND a.id &lt;&gt; #{id}
+            AND c.id &lt;&gt; #{id}
             </if>
     </select>
 
