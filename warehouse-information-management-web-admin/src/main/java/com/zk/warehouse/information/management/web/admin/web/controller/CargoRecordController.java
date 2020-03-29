@@ -79,8 +79,8 @@ public class CargoRecordController {
         return "cargo_record_delivery";
     }
 
-    @RequestMapping(value = "save",method = RequestMethod.POST)
-    public String save(TbCargoRecord tbCargoRecord, Model model, RedirectAttributes redirectAttributes){
+    @RequestMapping(value = "entrySave",method = RequestMethod.POST)
+    public String entrySave(TbCargoRecord tbCargoRecord, Model model, RedirectAttributes redirectAttributes){
         BaseResult baseResult = tbCargoRecordService.save(tbCargoRecord);
         //保存成功
         if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS){
@@ -89,8 +89,27 @@ public class CargoRecordController {
         }
         //保存失败
         else {
+            List<String> name = tbWarehouseService.getName();
+            model.addAttribute("name",name);
             model.addAttribute("baseResult",baseResult);
-            return "cargo_list";
+            return "cargo_record_entry";
+        }
+    }
+
+    @RequestMapping(value = "deliverySave",method = RequestMethod.POST)
+    public String deliverySave(TbCargoRecord tbCargoRecord, Model model, RedirectAttributes redirectAttributes){
+        BaseResult baseResult = tbCargoRecordService.save(tbCargoRecord);
+        //保存成功
+        if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS){
+            redirectAttributes.addFlashAttribute("baseResult",baseResult);
+            return "redirect:/cargo/record/list";
+        }
+        //保存失败
+        else {
+            List<String> name = tbWarehouseService.getName();
+            model.addAttribute("name",name);
+            model.addAttribute("baseResult",baseResult);
+            return "cargo_record_delivery";
         }
     }
 

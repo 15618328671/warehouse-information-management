@@ -221,10 +221,11 @@
     </select>
 
     <delete id="delete">
-        DELETE FROM
-            tb_warehouse as w
+        DELETE
+        FROM
+        tb_warehouse
         WHERE
-            w.name = #{name}
+        name = #{name}
     </delete>
     
     <select id="getCapacity" resultType="double">

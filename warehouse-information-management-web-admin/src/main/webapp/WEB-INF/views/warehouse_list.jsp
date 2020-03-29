@@ -75,7 +75,7 @@
                                                 <c:if test="${tbWarehouse.isParent}">
                                                     <button type="button" class="btn btn-sm btn-default" onclick="App.searchDetail('/warehouse/detail?id=${tbWarehouse.id}')"><i class="fa fa-search"></i> 查看</button>&nbsp;&nbsp;&nbsp;
                                                     <a href="/warehouse/form?id=${tbWarehouse.id}" type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> 编辑</a>&nbsp;&nbsp;&nbsp;
-                                                    <button type="button" class="btn btn-sm btn-danger" onclick=""><i class="fa fa-trash-o"></i> 删除</button>&nbsp;&nbsp;&nbsp;
+                                                    <button type="button" class="btn btn-sm btn-danger" onclick="App.delete('/warehouse/delete?name=${tbWarehouse.name}','警告：该操作将删除该仓库下的所有货物，您确定要删除吗？')"><i class="fa fa-trash-o"></i> 删除</button>&nbsp;&nbsp;&nbsp;
                                                     <a href="/cargo/form?parentId=${tbWarehouse.name}" type="button" class="btn btn-sm btn-default"><i class="fa fa-plus"></i> 新增货物</a>
                                                 </c:if>
                                                 <c:if test="${!tbWarehouse.isParent}">

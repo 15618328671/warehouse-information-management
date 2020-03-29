@@ -8,6 +8,7 @@ import com.zk.warehouse.information.management.web.admin.dao.TbAdministratorDao;
 import com.zk.warehouse.information.management.web.admin.service.TbAdministratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
 import java.util.Date;
@@ -20,6 +21,7 @@ import java.util.Map;
  * @date 2020/1/18-14:46
  */
 @Service
+@Transactional(readOnly = true)
 public class TbAdministratorServiceImpl implements TbAdministratorService {
     @Autowired
     private TbAdministratorDao tbAdministratorDao;
@@ -44,6 +46,7 @@ public class TbAdministratorServiceImpl implements TbAdministratorService {
     }
 
     @Override
+    @Transactional(readOnly = false)
     public BaseResult save(TbAdministrator tbAdministrator) {
         String validator = BeanValidator.validator(tbAdministrator);
         //Validation验证不通过
@@ -78,6 +81,7 @@ public class TbAdministratorServiceImpl implements TbAdministratorService {
     }
 
     @Override
+    @Transactional(readOnly = false)
     public void insert(TbAdministrator tbAdministrator) {
         tbAdministratorDao.insert(tbAdministrator);
     }
@@ -88,6 +92,7 @@ public class TbAdministratorServiceImpl implements TbAdministratorService {
     }
 
     @Override
+    @Transactional(readOnly = false)
     public void deleteMulti(String[] ids) {
         tbAdministratorDao.deleteMulti(ids);
     }

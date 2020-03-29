@@ -41,15 +41,18 @@ var App = function () {
     /**
      * 删除
      */
-    var handleDelete = function (url) {
+    var handleDelete = function (url,msg) {
+        //可选参数
+        if (!msg) msg =null;
+
         $("#modal-default").modal("show");
-        $("#modal-message").html("您确定要删除这项数据吗？");
+        $("#modal-message").html(msg == null ?"您确定要删除这项数据吗？":msg);
         $(".modal-footer .btn-primary").bind("click",function () {
             btnDelete();
         });
 
         function btnDelete() {
-            var _id = $(this).attr("id");
+            // var _id = $(this).attr("id");
             $.ajax({
                 "url":url,
                 "type":"POST",
@@ -208,8 +211,8 @@ var App = function () {
             return handleInitPage(url,columns);
         },
 
-        delete:function (url) {
-            handleDelete(url);
+        delete:function (url,msg) {
+            handleDelete(url,msg);
         }
     }
 

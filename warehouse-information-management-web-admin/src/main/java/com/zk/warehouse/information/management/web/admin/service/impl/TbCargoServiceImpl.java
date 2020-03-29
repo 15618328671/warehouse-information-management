@@ -9,6 +9,7 @@ import com.zk.warehouse.information.management.web.admin.dao.TbWarehouseDao;
 import com.zk.warehouse.information.management.web.admin.service.TbCargoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -20,6 +21,7 @@ import java.util.Map;
  * @date 2020/2/29-14:35
  */
 @Service
+@Transactional(readOnly = true)
 public class TbCargoServiceImpl implements TbCargoService {
     @Autowired
     private TbCargoDao tbCargoDao;
@@ -38,6 +40,7 @@ public class TbCargoServiceImpl implements TbCargoService {
     }
 
     @Override
+    @Transactional(readOnly = false)
     public BaseResult save(TbCargo tbCargo) {
         String validator = BeanValidator.validator(tbCargo);
         //Validation验证不通过
@@ -96,6 +99,7 @@ public class TbCargoServiceImpl implements TbCargoService {
     }
 
     @Override
+    @Transactional(readOnly = false)
     public void deleteMulti(String[] ids) {
         tbCargoDao.deleteMulti(ids);
     }

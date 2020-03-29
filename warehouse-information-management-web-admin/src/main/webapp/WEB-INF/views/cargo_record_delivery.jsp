@@ -47,7 +47,7 @@
                         </div>
                         <!-- /.box-header -->
                         <!-- form start -->
-                        <form:form id="inputForm" cssClass="form-horizontal" action="/cargo/record/save" method="post" modelAttribute="tbCargoRecord">
+                        <form:form id="inputForm" cssClass="form-horizontal" action="/cargo/record/deliverySave" method="post" modelAttribute="tbCargoRecord">
                             <form:hidden path="id"/>
                             <div class="box-body">
                                 <div class="form-group">

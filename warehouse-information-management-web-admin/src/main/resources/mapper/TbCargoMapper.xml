@@ -214,4 +214,21 @@
         WHERE
             parent_id = #{parentId}
     </select>
+
+    <select id="countByParentId" resultType="integer">
+        SELECT
+        COUNT(*)
+        FROM
+        tb_cargo
+        WHERE
+        parent_id = #{parentId}
+    </select>
+
+    <delete id="deleteByParentId">
+        DELETE
+        FROM
+        tb_cargo
+        WHERE
+        parent_id = #{parentId}
+    </delete>
 </mapper>

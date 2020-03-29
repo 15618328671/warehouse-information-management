@@ -43,4 +43,9 @@ public class TbWarehouseServiceTest {
         String number = tbWarehouseService.getNumberByName("水果仓库");
         System.out.println(number);
     }
+
+    @Test
+    public void testDelete(){
+        tbWarehouseService.delete("未知仓库");
+    }
 }

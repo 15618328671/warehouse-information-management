@@ -59,4 +59,17 @@ public interface TbCargoDao extends BaseDao<TbCargo> {
      * @return
      */
     Double sumInventory(String parentId);
+
+    /**
+     * 查看所属仓库下是否有货物
+     * @param parentId
+     * @return
+     */
+    int countByParentId(String parentId);
+
+    /**
+     * 删除该仓库所有货物
+     * @param parentId
+     */
+    void deleteByParentId(String parentId);
 }
