@@ -3,26 +3,18 @@ package com.zk.warehouse.information.management.domain;
 import com.zk.warehouse.information.management.commons.persistence.BaseEntity;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
  * @author zk
- * @date 2020/2/22-16:32
+ * @date 2020/3/26-14:53
  */
 @Data
-public class TbCargo extends BaseEntity {
-    @NotBlank(message = "货物名不能为空")
+public class TbCargoRecord extends BaseEntity {
     private String name;
-    @NotBlank(message = "货物编号不能为空")
     private String number;
-    private Boolean isParent;
-    @NotBlank(message = "所属仓库不能为空")
     private String parentId;
     private Double inventory;
-    @NotNull(message = "货物名排序不能为空")
-    private Integer sortOrder;
     private Double entryQuantity;
     private Date entryTime;
     private Double deliveryQuantity;

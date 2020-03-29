@@ -38,7 +38,6 @@ public class CargoController {
             tbCargo = tbCargoService.getById(id);
         }
         else {
-
             tbCargo = new TbCargo();
         }
         return tbCargo;

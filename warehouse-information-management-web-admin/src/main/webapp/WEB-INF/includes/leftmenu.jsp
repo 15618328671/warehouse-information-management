@@ -39,7 +39,8 @@
                 </a>
                 <ul class="treeview-menu">
                     <li class="active"><a href="/warehouse/list"><i class="fa fa-circle-o"></i> 内容分类</a></li>
-                    <li class="active"><a href="/cargo/list"><i class="fa fa-circle-o"></i> 内容列表</a></li>
+                    <li class="active"><a href="/cargo/list"><i class="fa fa-circle-o"></i> 货物列表</a></li>
+                    <li class="active"><a href="/cargo/record/list"><i class="fa fa-circle-o"></i> 货物流动记录</a></li>
                 </ul>
             </li>
         </ul>

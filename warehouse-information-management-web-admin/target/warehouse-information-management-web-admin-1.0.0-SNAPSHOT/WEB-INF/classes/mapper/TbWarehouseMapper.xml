@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zk.warehouse.information.management.web.admin.dao.TbWarehouseDao">
     <sql id="tbWarehouseColumns">
+        w.id,
         w.name,
         w.number,
         w.inventory,
@@ -18,6 +19,7 @@
     </sql>
 
     <sql id="tbCargoColumns">
+        c.id,
         c.name,
         c.number,
         c.inventory,
@@ -34,6 +36,7 @@
     </sql>
 
     <sql id="tbColumns">
+        id,
         name,
         number,
         inventory,
@@ -76,6 +79,7 @@
                 sort_order ASC) As c
     </select>
     <resultMap id="selectAllMap" type="TbWarehouse">
+        <result property="id" column="id"/>
         <result property="name" column="name"/>
         <result property="number" column="number"/>
         <result property="inventory" column="inventory"/>
@@ -89,6 +93,7 @@
         <result property="deliveryQuantity" column="delivery_quantity"/>
         <result property="deliveryTime" column="delivery_time"/>
         <association property="tbCargo" javaType="TbCargo">
+            <result property="id" column="id"/>
             <result property="name" column="name"/>
             <result property="number" column="number"/>
             <result property="inventory" column="inventory"/>
@@ -110,12 +115,23 @@
         FROM
             tb_warehouse as w
         WHERE
-            id = #{id}
+            w.id = #{id}
     </select>
 
     <insert id="insert">
         INSERT INTO tb_warehouse(
-            <include refid="tbColumns"/>,
+            name,
+            number,
+            inventory,
+            parent_id,
+            is_parent,
+            sort_order,
+            created,
+            updated,
+            entry_quantity,
+            entry_time,
+            delivery_quantity,
+            delivery_time,
             capacity
         )
         VALUES (
@@ -151,6 +167,8 @@
             delivery_quantity = #{deliveryQuantity},
             delivery_time = #{deliveryTime},
             capacity = #{capacity}
+        WHERE
+            id = #{id}
     </update>
 
     <select id="getName" resultType="java.lang.String">
@@ -171,25 +189,74 @@
 
     <select id="countName" resultType="integer">
         SELECT
-            COUNT (*)
+        COUNT(*)
         FROM
-            tb_warehouse
+        tb_warehouse AS w
         WHERE
-            name = #{name}
-            <if test="id != null and id !=''">
-            AND a.id &lt;&gt; #{id}
-            </if>
+        w.name = #{name}
+        <if test="id != null and id !=''">
+            AND w.id &lt;&gt; #{id}
+        </if>
+    </select>
+
+    <select id="countByName" resultType="integer">
+        SELECT
+        COUNT(*)
+        FROM
+        tb_warehouse AS w
+        WHERE
+        w.name = #{name}
     </select>
 
     <select id="countNumber" resultType="integer">
         SELECT
-        COUNT (*)
+        COUNT(*)
         FROM
-        tb_warehouse
+        tb_warehouse as w
         WHERE
-        number = #{number}
+        w.number = #{number}
         <if test="id != null and id !=''">
-            AND a.id &lt;&gt; #{id}
+            AND w.id &lt;&gt; #{id}
         </if>
     </select>
+
+    <delete id="delete">
+        DELETE FROM
+            tb_warehouse as w
+        WHERE
+            w.name = #{name}
+    </delete>
+    
+    <select id="getCapacity" resultType="double">
+        SELECT
+            capacity
+        FROM
+            tb_warehouse
+        WHERE
+            name = #{name}
+    </select>
+
+    <update id="updateEntryByName">
+        UPDATE
+            tb_warehouse
+        SET
+            inventory = #{tbWarehouse.inventory},
+            updated = #{tbWarehouse.updated},
+            entry_quantity = #{tbWarehouse.entryQuantity},
+            entry_time = #{tbWarehouse.entryTime}
+        WHERE
+            name = #{name}
+    </update>
+
+    <update id="updateDeliveryByName">
+        UPDATE
+            tb_warehouse
+        SET
+            inventory = #{tbWarehouse.inventory},
+            updated = #{tbWarehouse.updated},
+            delivery_quantity = #{tbWarehouse.deliveryQuantity},
+            delivery_time = #{tbWarehouse.deliveryTime}
+        WHERE
+            name = #{name}
+    </update>
 </mapper>

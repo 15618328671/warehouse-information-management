@@ -1,6 +1,7 @@
 package com.zk.warehouse.information.management.web.admin.dao;
 
 import com.zk.warehouse.information.management.domain.TbWarehouse;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -66,4 +67,25 @@ public interface TbWarehouseDao {
      * @param name
      */
     void delete(String name);
+
+    /**
+     * 根据仓库名称获取仓库总容量
+     * @param name
+     * @return
+     */
+    Double getCapacity(String name);
+
+    /**
+     * 根据仓库名称更改入库后的仓库信息
+     * @param tbWarehouse
+     * @param name
+     */
+    void updateEntryByName(@Param("tbWarehouse")TbWarehouse tbWarehouse,@Param("name")String name);
+
+    /**
+     * 根据仓库名称更改出库后的仓库信息
+     * @param tbWarehouse
+     * @param name
+     */
+    void updateDeliveryByName(@Param("tbWarehouse")TbWarehouse tbWarehouse,@Param("name")String name);
 }

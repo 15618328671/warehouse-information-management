@@ -2,12 +2,10 @@ package com.zk.warehouse.information.management.web.admin.service.impl;
 
 import com.zk.warehouse.information.management.commons.dto.BaseResult;
 import com.zk.warehouse.information.management.commons.dto.PageInfo;
-import com.zk.warehouse.information.management.commons.utils.RegexUtils;
 import com.zk.warehouse.information.management.commons.validator.BeanValidator;
 import com.zk.warehouse.information.management.domain.TbAdministrator;
 import com.zk.warehouse.information.management.web.admin.dao.TbAdministratorDao;
 import com.zk.warehouse.information.management.web.admin.service.TbAdministratorService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;

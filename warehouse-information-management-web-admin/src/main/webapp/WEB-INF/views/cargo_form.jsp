@@ -48,6 +48,7 @@
                         <!-- /.box-header -->
                         <!-- form start -->
                         <form:form id="inputForm" cssClass="form-horizontal" action="/cargo/save" method="post" modelAttribute="tbCargo">
+                            <form:hidden path="id"/>
                             <div class="box-body">
                                 <div class="form-group">
                                     <label for="name" class="col-sm-2 control-label">所属仓库</label>
@@ -71,13 +72,6 @@
 
                                     <div class="col-sm-10">
                                         <form:input path="number" cssClass="form-control required" placeholder="请输入货物编号"/>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="inventory" class="col-sm-2 control-label">货物总量</label>
-
-                                    <div class="col-sm-10">
-                                        <form:input path="inventory" cssClass="form-control required" placeholder="请输入存入货物数"/>
                                     </div>
                                 </div>
                                 <div class="form-group">

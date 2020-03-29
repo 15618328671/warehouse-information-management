@@ -226,4 +226,37 @@
         WHERE
             w.name = #{name}
     </delete>
+    
+    <select id="getCapacity" resultType="double">
+        SELECT
+            capacity
+        FROM
+            tb_warehouse
+        WHERE
+            name = #{name}
+    </select>
+
+    <update id="updateEntryByName">
+        UPDATE
+            tb_warehouse
+        SET
+            inventory = #{tbWarehouse.inventory},
+            updated = #{tbWarehouse.updated},
+            entry_quantity = #{tbWarehouse.entryQuantity},
+            entry_time = #{tbWarehouse.entryTime}
+        WHERE
+            name = #{name}
+    </update>
+
+    <update id="updateDeliveryByName">
+        UPDATE
+            tb_warehouse
+        SET
+            inventory = #{tbWarehouse.inventory},
+            updated = #{tbWarehouse.updated},
+            delivery_quantity = #{tbWarehouse.deliveryQuantity},
+            delivery_time = #{tbWarehouse.deliveryTime}
+        WHERE
+            name = #{name}
+    </update>
 </mapper>

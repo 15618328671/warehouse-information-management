@@ -2,6 +2,7 @@ package com.zk.warehouse.information.management.web.admin.dao;
 
 import com.zk.warehouse.information.management.commons.persistence.BaseDao;
 import com.zk.warehouse.information.management.domain.TbCargo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -23,4 +24,39 @@ public interface TbCargoDao extends BaseDao<TbCargo> {
      * @return
      */
     int countNumber(TbCargo tbCargo);
+
+    /**
+     * 根据编号查询名称
+     * @param number
+     * @return
+     */
+    String getNameByNumber(String number);
+
+    /**
+     * 根据编号获取现存货
+     * @param number
+     * @return
+     */
+    Double getInventoryByNumber(String number);
+
+    /**
+     * 根据货物名称更改入库信息
+     * @param tbCargo
+     * @param name
+     */
+    void updateEntryByName(@Param("tbCargo") TbCargo tbCargo,@Param("name") String name);
+
+    /**
+     * 根据货物名称更改入库信息
+     * @param tbCargo
+     * @param name
+     */
+    void updateDeliveryByName(@Param("tbCargo") TbCargo tbCargo,@Param("name") String name);
+
+    /**
+     * 根据所属仓库查询该仓库现存货量
+     * @param parentId
+     * @return
+     */
+    Double sumInventory(String parentId);
 }

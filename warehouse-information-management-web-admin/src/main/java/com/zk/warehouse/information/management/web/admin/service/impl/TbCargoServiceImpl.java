@@ -46,9 +46,9 @@ public class TbCargoServiceImpl implements TbCargoService {
         }
         //Validation验证通过
         else {
-            tbCargo.setUpdated(new Date());
             BaseResult baseResult = checkCargo(tbCargo);
             if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+                tbCargo.setUpdated(new Date());
                 //新增货物
                 if (tbCargo.getId() == null) {
                     //通过重复判断

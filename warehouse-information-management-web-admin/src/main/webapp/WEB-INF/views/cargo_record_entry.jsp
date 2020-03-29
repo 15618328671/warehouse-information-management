@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>兴仁农贸市场果菜仓库信息管理系统 | ${tbCargo.id == null?"新增":"编辑"}货物信息</title>
+    <title>兴仁农贸市场果菜仓库信息管理系统 | 入库</title>
     <jsp:include page="../includes/header.jsp"/>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -26,7 +26,7 @@
             </h1>
             <ol class="breadcrumb">
                 <li><a href="/main"><i class="fa fa-dashboard"></i> 首页</a></li>
-                <li class="active">${tbCargo.id == null?"新增":"编辑"}货物信息</li>
+                <li class="active">入库</li>
             </ol>
         </section>
 
@@ -37,7 +37,7 @@
                     <!-- 水平表单 -->
                     <div class="box box-info">
                         <div class="box-header with-border">
-                            <h3 class="box-title">${tbCargo.id == null?"新增":"编辑"}货物信息</h3>
+                            <h3 class="box-title">入库</h3>
                             <c:if test="${baseResult.status == 500}">
                                 <div class="alert alert-danger alert-dismissible">
                                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -47,7 +47,7 @@
                         </div>
                         <!-- /.box-header -->
                         <!-- form start -->
-                        <form:form id="inputForm" cssClass="form-horizontal" action="/cargo/save" method="post" modelAttribute="tbCargo">
+                        <form:form id="inputForm" cssClass="form-horizontal" action="/cargo/record/save" method="post" modelAttribute="tbCargoRecord">
                             <form:hidden path="id"/>
                             <div class="box-body">
                                 <div class="form-group">
@@ -75,10 +75,10 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">货物排序</label>
+                                    <label class="col-sm-2 control-label">入库数量</label>
 
                                     <div class="col-sm-10">
-                                        <form:input path="sortOrder" cssClass="form-control required" placeholder="请输入货物顺序"/>
+                                        <form:input path="entryQuantity" cssClass="form-control required" placeholder="请输入入库数量"/>
                                     </div>
                                 </div>
                             </div>

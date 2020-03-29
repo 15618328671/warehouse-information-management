@@ -48,6 +48,7 @@
                         <!-- /.box-header -->
                         <!-- form start -->
                         <form:form id="inputForm" cssClass="form-horizontal" action="/warehouse/save" method="post" modelAttribute="tbWarehouse">
+                            <form:hidden path="id"/>
                             <div class="box-body">
                                 <div class="form-group">
                                     <label for="name" class="col-sm-2 control-label">仓库名</label>
@@ -67,7 +68,7 @@
                                     <label for="capacity" class="col-sm-2 control-label">仓库容量</label>
 
                                     <div class="col-sm-10">
-                                        <form:input path="capacity" cssClass="form-control required" placeholder="请输入仓库总量"/>
+                                        <form:input path="capacity" cssClass="form-control required" placeholder="请输入仓库总容量"/>
                                     </div>
                                 </div>
                                 <div class="form-group">

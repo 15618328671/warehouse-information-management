@@ -52,9 +52,6 @@
                             <div class="box-body">
                                 <a href="/warehouse/form" type="button" class="btn btn-sm btn-default "><i
                                         class="fa fa-plus"></i>新增仓库</a>&nbsp;&nbsp;&nbsp;
-                                <a type="button" class="btn btn-sm btn-default "
-                                   onclick="App.deleteMulti('/admin/delete')"><i class="fa fa-trash-o"></i>删除</a>&nbsp;&nbsp;&nbsp;
-                                <a href="#" type="button" class="btn btn-sm btn-default "><i class="fa fa-upload"></i>导入</a>&nbsp;&nbsp;&nbsp;
                                 <a href="#" type="button" class="btn btn-sm btn-default "><i class="fa fa-download"></i>导出</a>
                             </div>
 
@@ -75,10 +72,16 @@
                                             <td>${tbWarehouse.number}</td>
                                             <td>${tbWarehouse.sortOrder}</td>
                                             <td>
-                                                <a href="#" type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> 编辑</a>&nbsp;&nbsp;&nbsp;
-                                                <button type="button" class="btn btn-sm btn-danger" onclick=""><i class="fa fa-trash-o"></i> 删除</button>&nbsp;&nbsp;&nbsp;
                                                 <c:if test="${tbWarehouse.isParent}">
+                                                    <button type="button" class="btn btn-sm btn-default" onclick="App.searchDetail('/warehouse/detail?id=${tbWarehouse.id}')"><i class="fa fa-search"></i> 查看</button>&nbsp;&nbsp;&nbsp;
+                                                    <a href="/warehouse/form?id=${tbWarehouse.id}" type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> 编辑</a>&nbsp;&nbsp;&nbsp;
+                                                    <button type="button" class="btn btn-sm btn-danger" onclick=""><i class="fa fa-trash-o"></i> 删除</button>&nbsp;&nbsp;&nbsp;
                                                     <a href="/cargo/form?parentId=${tbWarehouse.name}" type="button" class="btn btn-sm btn-default"><i class="fa fa-plus"></i> 新增货物</a>
+                                                </c:if>
+                                                <c:if test="${!tbWarehouse.isParent}">
+                                                    <button type="button" class="btn btn-sm btn-default" onclick="App.searchDetail('/cargo/detail?id=${tbWarehouse.id}')"><i class="fa fa-search"></i> 查看</button>&nbsp;&nbsp;&nbsp;
+                                                    <a href="/cargo/form?id=${tbWarehouse.id}" type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> 编辑</a>&nbsp;&nbsp;&nbsp;
+                                                    <button type="button" class="btn btn-sm btn-danger" onclick="App.delete('/cargo/delete?ids=${tbWarehouse.id}')"><i class="fa fa-trash-o"></i> 删除</button>&nbsp;&nbsp;
                                                 </c:if>
                                             </td>
                                         </tr>

@@ -18,7 +18,6 @@ public class TbWarehouse extends BaseEntity {
     private String name;
     @NotBlank(message = "仓库编号不能为空")
     private String number;
-    @NotNull(message = "仓库存货量不能为空")
     private Double inventory;
     private String parentId;
     private Boolean isParent;

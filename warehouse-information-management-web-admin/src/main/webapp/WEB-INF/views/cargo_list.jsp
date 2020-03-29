@@ -45,11 +45,16 @@
                                         ${baseResult.message}
                                 </div>
                             </c:if>
+                            <c:if test="${baseResult.status == 500}">
+                                <div class="alert alert-danger alert-dismissible">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                        ${baseResult.message}
+                                </div>
+                            </c:if>
 
                             <div class="box-body">
                                 <a href="/cargo/form" type="button" class="btn btn-sm btn-default "><i class="fa fa-plus"></i>新增</a>&nbsp;&nbsp;&nbsp;
                                 <a type="button" class="btn btn-sm btn-default " onclick="App.deleteMulti('/cargo/delete')"><i class="fa fa-trash-o"></i>删除</a>&nbsp;&nbsp;&nbsp;
-                                <a href="#" type="button" class="btn btn-sm btn-default "><i class="fa fa-upload"></i>导入</a>&nbsp;&nbsp;&nbsp;
                                 <a href="#" type="button" class="btn btn-sm btn-default "><i class="fa fa-download"></i>导出</a>
                             </div>
 
@@ -150,6 +155,8 @@
                     var _deleteUrl = "/cargo/delete?ids="+row.id;
                     return '<button type="button" class="btn btn-sm btn-default" onclick="App.searchDetail(\''+_detailUrl+'\')"><i class="fa fa-search"></i> 查看</button>&nbsp;&nbsp;&nbsp;'
                         +'<a href="/cargo/form?id='+row.id+'" type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> 编辑</a>&nbsp;&nbsp;&nbsp;'
+                        +'<a href="/cargo/record/entry?parentId='+row.parentId+'&name='+row.name+'&number='+row.number+'" type="button" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> 入库</a>&nbsp;&nbsp;&nbsp;'
+                        +'<a href="/cargo/record/delivery?parentId='+row.parentId+'&name='+row.name+'&number='+row.number+'" type="button" class="btn btn-sm btn-primary"><i class="fa fa-minus"></i> 出库</a>&nbsp;&nbsp;&nbsp;'
                         +'<button type="button" class="btn btn-sm btn-danger" onclick="App.delete(\''+_deleteUrl+'\')"><i class="fa fa-trash-o"></i> 删除</button> '
                 }
             }

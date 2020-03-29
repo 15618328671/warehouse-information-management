@@ -163,4 +163,55 @@
             #{id}
         </foreach>
     </delete>
+
+    <select id="getNameByNumber" resultType="string">
+        SELECT
+            c.name
+        FROM
+            tb_cargo AS c
+        WHERE
+            c.number = #{number}
+    </select>
+
+    <select id="getInventoryByNumber" resultType="double">
+        SELECT
+            c.inventory
+        FROM
+            tb_cargo AS c
+        WHERE
+            c.number = #{number}
+    </select>
+
+    <update id="updateEntryByName">
+        UPDATE
+            tb_cargo
+        SET
+            inventory = #{tbCargo.inventory},
+            updated = #{tbCargo.updated},
+            entry_quantity = #{tbCargo.entryQuantity},
+            entry_time = #{tbCargo.entryTime}
+        WHERE
+            name = #{name}
+    </update>
+
+    <update id="updateDeliveryByName">
+        UPDATE
+            tb_cargo
+        SET
+            inventory = #{tbCargo.inventory},
+            updated = #{tbCargo.updated},
+            delivery_quantity = #{tbCargo.deliveryQuantity},
+            delivery_time = #{tbCargo.deliveryTime}
+        WHERE
+            name = #{name}
+    </update>
+
+    <select id="sumInventory" resultType="double">
+        SELECT
+            SUM(inventory)
+        FROM
+            tb_cargo
+        WHERE
+            parent_id = #{parentId}
+    </select>
 </mapper>

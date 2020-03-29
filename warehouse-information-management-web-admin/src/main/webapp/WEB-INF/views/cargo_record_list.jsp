@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>兴仁农贸市场果菜仓库信息管理系统 | 用户管理</title>
+    <title>兴仁农贸市场果菜仓库信息管理系统 | 货物记录</title>
     <jsp:include page="../includes/header.jsp"/>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -22,12 +22,12 @@
         <!-- 文本头 -->
         <section class="content-header">
             <h1>
-                用户管理
+                货物管理
                 <small></small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="/main"><i class="fa fa-dashboard"></i> 首页</a></li>
-                <li class="active">管理员列表</li>
+                <li class="active">货物记录</li>
             </ol>
         </section>
 
@@ -37,7 +37,7 @@
                 <div class="col-xs-12">
                     <div class="box">
                         <div class="box-header">
-                            <h3 class="box-title">管理员列表</h3>
+                            <h3 class="box-title">货物记录</h3>
 
                             <c:if test="${baseResult.status == 200}">
                                 <div class="alert alert-success alert-dismissible">
@@ -47,36 +47,34 @@
                             </c:if>
 
                             <div class="box-body">
-                                <a href="/admin/form" type="button" class="btn btn-sm btn-default "><i class="fa fa-plus"></i>新增</a>&nbsp;&nbsp;&nbsp;
-                                <a type="button" class="btn btn-sm btn-default " onclick="App.deleteMulti('/admin/delete')"><i class="fa fa-trash-o"></i>删除</a>&nbsp;&nbsp;&nbsp;
                                 <a href="#" type="button" class="btn btn-sm btn-default "><i class="fa fa-download"></i>导出</a>
                             </div>
 
                             <div class="row form-horizontal">
                                 <div class="col-xs-12 col-sm-3">
                                     <div class="form-group">
-                                        <label for="username" class="col-sm-3 control-label">用户名</label>
+                                        <label for="name" class="col-sm-4 control-label">货物名</label>
 
-                                        <div class="col-sm-9">
-                                            <input id="username" name="username" class="form-control" placeholder="用户名"/>
+                                        <div class="col-sm-8">
+                                            <input id="name" name="name" class="form-control" placeholder="货物名"/>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-3">
                                     <div class="form-group">
-                                        <label for="phone" class="col-sm-3 control-label">手机号</label>
+                                        <label for="number" class="col-sm-4 control-label">货物编号</label>
 
-                                        <div class="col-sm-9">
-                                            <input id="phone" name="phone" class="form-control" placeholder="手机号"/>
+                                        <div class="col-sm-8">
+                                            <input id="number" name="number" class="form-control" placeholder="货物编号"/>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-3">
                                     <div class="form-group">
-                                        <label for="email" class="col-sm-3 control-label">邮箱</label>
+                                        <label for="parentId" class="col-sm-4 control-label">所属仓库</label>
 
-                                        <div class="col-sm-9">
-                                            <input id="email" name="email" class="form-control" placeholder="邮箱"/>
+                                        <div class="col-sm-8">
+                                            <input id="parentId" name="parentId" class="form-control" placeholder="所属仓库"/>
                                         </div>
                                     </div>
                                 </div>
@@ -91,11 +89,14 @@
                                 <thead>
                                 <tr>
                                     <th><input type="checkbox" class="minimal iCheck-master"/></th>
-                                    <th>ID</th>
-                                    <th>用户名</th>
-                                    <th>手机号</th>
-                                    <th>邮箱</th>
-                                    <th>更新时间</th>
+                                    <th>货物编号</th>
+                                    <th>货物名</th>
+                                    <th>所属仓库</th>
+                                    <th>入库数量</th>
+                                    <th>入库时间</th>
+                                    <th>出库数量</th>
+                                    <th>出库时间</th>
+                                    <th>现存货数量</th>
                                     <th>操作</th>
                                 </tr>
                                 </thead>
@@ -127,44 +128,52 @@
     var _dataTables;
     $(function () {
         var _columns =  [
-                {
-                    "data": function ( row, type, val, meta ){
-                        return '<input id="'+row.id+'" type="checkbox" class="minimal"/>'
-                    }
-                },
-                { "data": "id" },
-                { "data": "username" },
-                { "data": "phone" },
-                { "data": "email" },
-                {
-                    "data": "updated",
-                    "render": function changeDateFormat(date) {
-                        var changeDate = new Date(date).toJSON();
-                        return new Date(+new Date(changeDate) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
-                    }
-                },
-                {
-                    "data": function ( row, type, val, meta ){
-                        var _detailUrl = "/admin/detail?id="+row.id;
-                        var _deleteUrl = "/admin/delete?ids="+row.id;
-                        return '<button type="button" class="btn btn-sm btn-default" onclick="App.searchDetail(\''+_detailUrl+'\')"><i class="fa fa-search"></i> 查看</button>&nbsp;&nbsp;&nbsp;'
-                            +'<a href="/admin/form?id='+row.id+'" type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> 编辑</a>&nbsp;&nbsp;&nbsp;'
-                            +'<button type="button" class="btn btn-sm btn-danger" onclick="App.delete(\''+_deleteUrl+'\')"><i class="fa fa-trash-o"></i> 删除</button> '
-                    }
+            {
+                "data": function ( row, type, val, meta ){
+                    return '<input id="'+row.id+'" type="checkbox" class="minimal"/>'
                 }
-            ];
-        _dataTables = App.initPage("/admin/page",_columns);
+            },
+            { "data": "number" },
+            { "data": "name" },
+            { "data": "parentId" },
+            { "data": "entryQuantity"},
+            {
+                "data": "entryTime",
+                "render": function changeDateFormat(date) {
+                    var changeDate = new Date(date).toJSON();
+                    return new Date(+new Date(changeDate) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
+                }
+            },
+            { "data": "deliveryQuantity"},
+            {
+                "data": "deliveryTime",
+                "render": function changeDateFormat(date) {
+                    var changeDate = new Date(date).toJSON();
+                    return new Date(+new Date(changeDate) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
+                }
+            },
+            { "data": "inventory" },
+            {
+                "data": function ( row, type, val, meta ){
+                    var _detailUrl = "/cargo/record/detail?id="+row.id;
+                    var _deleteUrl = "/cargo/record/delete?ids="+row.id;
+                    return '<button type="button" class="btn btn-sm btn-default" onclick="App.searchDetail(\''+_detailUrl+'\')"><i class="fa fa-search"></i> 查看</button>&nbsp;&nbsp;&nbsp;'
+                        +'<button type="button" class="btn btn-sm btn-danger" onclick="App.delete(\''+_deleteUrl+'\')"><i class="fa fa-trash-o"></i> 删除</button> '
+                }
+            }
+        ];
+        _dataTables = App.initPage("/cargo/record/page",_columns);
     });
 
     function search() {
-        var username = $("#username").val();
-        var phone = $("#phone").val();
-        var email = $("#email").val();
+        var name = $("#name").val();
+        var number = $("#number").val();
+        var parentId = $("#parentId").val();
 
         var param = {
-            "username":username,
-            "phone":phone,
-            "email":email
+            "name":name,
+            "number":number,
+            "parentId":parentId
         };
         _dataTables.settings()[0].ajax.data = param;
         _dataTables.ajax.reload();
