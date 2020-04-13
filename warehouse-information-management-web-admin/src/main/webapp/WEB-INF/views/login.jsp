@@ -38,14 +38,12 @@
         <c:if test="${message == null}">
             <p class="login-box-msg">欢迎使用本系统</p>
         </c:if>
-        <c:if test="${message != null}">
-            <p class="login-box-msg" style="color: red">
-                    ${message}
-            </p>
-        </c:if>
+        <p class="login-box-msg" style="color: red">
+            ${message}
+        </p>
         <form action="/login" method="post">
             <div class="form-group has-feedback">
-                <input name="username" type="username" class="form-control" placeholder="请输入用户名" value="${username}">
+                <input name="username" type="text" class="form-control" placeholder="请输入用户名" value="${username}">
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
@@ -67,7 +65,7 @@
                 <!-- /.col -->
             </div>
         </form>
-        <a href="register.jsp" class="text-center">注册新账号</a>
+        <a href="/register" class="text-center">注册账号</a>
     </div>
 </div>
 <!-- jQuery 3 -->

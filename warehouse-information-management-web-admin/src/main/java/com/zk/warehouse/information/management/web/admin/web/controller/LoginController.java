@@ -25,11 +25,6 @@ public class LoginController {
 
     @RequestMapping(value = {"", "login"}, method = RequestMethod.GET)
     public String login(HttpServletRequest httpServletRequest) {
-        TbAdministrator tbadministrator = (TbAdministrator) httpServletRequest.getSession().getAttribute(ConstantUtils.SESSION_ADMINISTRATOR);
-        //已经登陆
-        if (tbadministrator != null) {
-            return "redirect:/main";
-        }else {
             //是否有本地COOKIE记录
             String administratorInfo = CookieUtils.getCookieValue(httpServletRequest,ConstantUtils.COOKIE_NAME_ADMINISTRATOR_INFO);
             if (StringUtils.isNotBlank(administratorInfo)){
@@ -40,7 +35,6 @@ public class LoginController {
                 httpServletRequest.setAttribute("password",password);
                 httpServletRequest.setAttribute("isRemember",true);
             }
-        }
         return "login";
     }
 

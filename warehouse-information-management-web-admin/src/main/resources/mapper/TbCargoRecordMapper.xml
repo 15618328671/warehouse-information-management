@@ -29,13 +29,13 @@
         tb_cargo_record AS c
         <where>
             <if test="tbCargoRecord.name != null and tbCargoRecord.name !=''">
-                AND c.name LIKE CONCAT ('%',#{tbCargo.name},'%')
+                AND c.name LIKE CONCAT ('%',#{tbCargoRecord.name},'%')
             </if>
             <if test="tbCargoRecord.number != null and tbCargoRecord.number !=''">
-                AND c.number LIKE CONCAT ('%',#{tbCargo.number},'%')
+                AND c.number LIKE CONCAT ('%',#{tbCargoRecord.number},'%')
             </if>
             <if test="tbCargoRecord.parentId != null and tbCargoRecord.parentId !=''">
-                AND c.parent_id LIKE CONCAT ('%',#{tbCargo.parentId},'%')
+                AND c.parent_id LIKE CONCAT ('%',#{tbCargoRecord.parentId},'%')
             </if>
         </where>
         LIMIT #{start},#{length}

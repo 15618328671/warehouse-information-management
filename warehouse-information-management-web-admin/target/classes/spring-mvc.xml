@@ -35,6 +35,7 @@
             <mvc:mapping path="/**"/>
             <mvc:exclude-mapping path="/login"/>
             <mvc:exclude-mapping path="/static/**"/>
+            <mvc:exclude-mapping path="/register"/>
             <bean class="com.zk.warehouse.information.management.web.admin.web.interceptor.LoginInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>

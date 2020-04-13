@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <!-- Head begin -->
@@ -32,29 +33,30 @@
     <div class="login-logo">
         <a href="#"><b>果菜仓库信息管理系统</b></a>
     </div>
-    <!-- /.login-logo -->
+    <!-- /.register-logo -->
     <div class="login-box-body">
-        <p class="login-box-msg">欢迎注册本系统</p>
-        <form action="#" method="post">
+        <c:if test="${message == null}">
+            <p class="login-box-msg">欢迎使用本系统</p>
+        </c:if>
+        <p class="login-box-msg" style="color: red">
+            ${message}
+        </p>
+        <form action="/register" method="post">
             <div class="form-group has-feedback">
-                <input type="email" class="form-control" placeholder="请输入用户名">
+                <input name="username" type="text" class="form-control" placeholder="请输入用户名">
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="password" class="form-control" placeholder="请输入密码">
+                <input name="password" type="password" class="form-control" placeholder="请输入密码">
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="password" class="form-control" placeholder="请确认密码">
+                <input name="rePassword" type="password" class="form-control" placeholder="请确认密码">
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             <div class="row">
                 <div class="col-xs-8">
-                    <div class="checkbox icheck">
-                        <label>
-                            <input type="checkbox"> 我同意该<a href="#">协议</a>
-                        </label>
-                    </div>
+                    <a href="/login" class="text-center">已有账号，直接登录</a>
                 </div>
                 <!-- /.col -->
                 <div class="col-xs-4">
@@ -63,7 +65,6 @@
                 <!-- /.col -->
             </div>
         </form>
-        <a href="login.jsp" class="text-center">已有账号，直接登录</a>
     </div>
 </div>
 <!-- jQuery 3 -->

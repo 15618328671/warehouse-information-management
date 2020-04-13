@@ -33,7 +33,7 @@
 
                             <p>
                                 ${administrator.username} - 管理员
-                                <small><fmt:formatDate value="${administrator.created}" pattern="yyyy-MM-dd HH:mm:ss"/></small>
+                                <small>创建时间：<fmt:formatDate value="${administrator.created}" pattern="yyyy-MM-dd HH:mm:ss"/></small>
                             </p>
                         </li>
                         <!-- Menu Footer-->

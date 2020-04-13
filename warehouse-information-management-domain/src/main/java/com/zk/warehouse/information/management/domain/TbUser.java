@@ -10,10 +10,10 @@ import javax.validation.constraints.Pattern;
 
 /**
  * @author zk
- * @date 2020/1/18-14:35
+ * @date 2020/4/13-15:32
  */
 @Data
-public class TbAdministrator extends BaseEntity {
+public class TbUser extends BaseEntity {
     @Length(min = 2,max = 20,message = "用户名需要在2~20位之间")
     private String username;
     @JsonIgnore

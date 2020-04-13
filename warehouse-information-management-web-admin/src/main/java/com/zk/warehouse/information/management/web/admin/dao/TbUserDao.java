@@ -1,0 +1,19 @@
+package com.zk.warehouse.information.management.web.admin.dao;
+
+import com.zk.warehouse.information.management.commons.persistence.BaseDao;
+import com.zk.warehouse.information.management.domain.TbUser;
+import org.springframework.stereotype.Repository;
+
+/**
+ * @author zk
+ * @date 2020/4/13-15:45
+ */
+@Repository
+public interface TbUserDao extends BaseDao<TbUser> {
+    /**
+     * 用户名是否存在
+     * @param username
+     * @return
+     */
+    int haveUsername(String username);
+}

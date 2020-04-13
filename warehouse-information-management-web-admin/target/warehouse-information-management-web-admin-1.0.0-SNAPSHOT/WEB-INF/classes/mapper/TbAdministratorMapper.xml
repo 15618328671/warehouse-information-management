@@ -25,7 +25,8 @@
             phone,
             email,
             created,
-            updated
+            updated,
+            level
         )
         VALUES
         (
@@ -34,7 +35,8 @@
             #{phone},
             #{email},
             #{created},
-            #{updated}
+            #{updated},
+            #{level}
         )
     </insert>
 
@@ -46,7 +48,8 @@
             phone = #{phone},
             email = #{email},
             created = #{created},
-            updated = #{updated}
+            updated = #{updated},
+            level = #{level}
         WHERE
             id = #{id}
     </update>
