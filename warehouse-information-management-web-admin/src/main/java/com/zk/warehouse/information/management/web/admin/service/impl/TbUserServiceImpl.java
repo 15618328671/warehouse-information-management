@@ -2,11 +2,13 @@ package com.zk.warehouse.information.management.web.admin.service.impl;
 
 import com.zk.warehouse.information.management.commons.dto.BaseResult;
 import com.zk.warehouse.information.management.commons.dto.PageInfo;
+import com.zk.warehouse.information.management.domain.TbAdministrator;
 import com.zk.warehouse.information.management.domain.TbUser;
 import com.zk.warehouse.information.management.web.admin.dao.TbUserDao;
 import com.zk.warehouse.information.management.web.admin.service.TbUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 
 import java.util.List;
 
@@ -55,7 +57,21 @@ public class TbUserServiceImpl implements TbUserService {
     }
 
     @Override
-    public int countUsername(String username) {
-        return tbUserDao.haveUsername(username);
+    public int countUsername(TbUser tbUser) {
+        return tbUserDao.haveUsername(tbUser);
+    }
+
+    @Override
+    public TbUser login(String username, String password) {
+        TbUser tbUser = tbUserDao.getByUsername(username);
+        if (tbUser != null) {
+            //md5加密
+            String md5Password = DigestUtils.md5DigestAsHex(password.getBytes());
+            //加密后的密码与存放密码相同，登陆成功
+            if (md5Password.equals(tbUser.getPassword())) {
+                return tbUser;
+            }
+        }
+        return null;
     }
 }

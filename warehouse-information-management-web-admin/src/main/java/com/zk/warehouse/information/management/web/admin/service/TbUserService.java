@@ -10,8 +10,16 @@ import com.zk.warehouse.information.management.domain.TbUser;
 public interface TbUserService extends BaseService<TbUser> {
     /**
      * 用户名是否存在
-     * @param username
+     * @param tbUser
      * @return
      */
-    int countUsername(String username);
+    int countUsername(TbUser tbUser);
+
+    /**
+     * 登陆
+     * @param username
+     * @param password
+     * @return
+     */
+    TbUser login(String username, String password);
 }

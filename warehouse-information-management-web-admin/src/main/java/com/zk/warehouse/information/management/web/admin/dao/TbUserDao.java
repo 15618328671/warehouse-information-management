@@ -12,8 +12,15 @@ import org.springframework.stereotype.Repository;
 public interface TbUserDao extends BaseDao<TbUser> {
     /**
      * 用户名是否存在
+     * @param tbUser
+     * @return
+     */
+    int haveUsername(TbUser tbUser);
+
+    /**
+     * 根据用户名获取用户信息
      * @param username
      * @return
      */
-    int haveUsername(String username);
+    TbUser getByUsername(String username);
 }

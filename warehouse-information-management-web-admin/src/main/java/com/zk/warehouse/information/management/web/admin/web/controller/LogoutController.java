@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 public class LogoutController {
     @RequestMapping(value = "logout", method = RequestMethod.GET)
     public String logout(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
-        CookieUtils.deleteCookie(httpServletRequest,httpServletResponse, ConstantUtils.COOKIE_NAME_ADMINISTRATOR_INFO);
+        CookieUtils.deleteCookie(httpServletRequest,httpServletResponse, ConstantUtils.COOKIE_NAME_INFO);
         httpServletRequest.getSession().invalidate();
         return "login";
     }

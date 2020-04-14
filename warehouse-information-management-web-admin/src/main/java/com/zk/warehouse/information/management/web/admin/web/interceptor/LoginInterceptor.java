@@ -2,6 +2,7 @@ package com.zk.warehouse.information.management.web.admin.web.interceptor;
 
 import com.zk.warehouse.information.management.commons.constant.ConstantUtils;
 import com.zk.warehouse.information.management.domain.TbAdministrator;
+import com.zk.warehouse.information.management.domain.TbUser;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -16,8 +17,9 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         TbAdministrator tbAdministrator = (TbAdministrator) httpServletRequest.getSession().getAttribute(ConstantUtils.SESSION_ADMINISTRATOR);
+        TbUser tbUser = (TbUser) httpServletRequest.getSession().getAttribute(ConstantUtils.SESSION_USER);
         //没有登陆
-        if (tbAdministrator == null){
+        if (tbAdministrator == null && tbUser == null){
             httpServletResponse.sendRedirect("/login");
         }
         return true;
