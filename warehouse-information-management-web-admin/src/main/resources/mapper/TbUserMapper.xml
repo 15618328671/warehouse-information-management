@@ -8,7 +8,8 @@
         u.phone,
         u.email,
         u.created,
-        u.updated
+        u.updated,
+        u.level
     </sql>
 
     <insert id="insert">
@@ -43,6 +44,9 @@
                 tb_user AS u
             WHERE
                 u.username = #{username}
+            <if test="id != null and id !=''">
+                AND u.id &lt;&gt; #{id}
+            </if>
             UNION
             SELECT
                 *
@@ -50,6 +54,73 @@
                 tb_administrator AS a
             WHERE
                 a.username = #{username}
+            <if test="id != null and id !=''">
+                AND a.id &lt;&gt; #{id}
+            </if>
         ) as c
     </select>
+
+    <select id="getByUsername" resultType="TbUser">
+        SELECT
+        <include refid="tbUserColumns"/>
+        FROM
+        tb_user as u
+        WHERE u.username = #{username}
+    </select>
+
+    <delete id="deleteMulti">
+        DELETE FROM tb_user
+        WHERE id IN
+        <foreach collection="array" open="(" close=")" separator="," item="id">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="page" resultType="TbUser" parameterType="java.util.Map">
+        SELECT
+        <include refid="tbUserColumns"/>
+        FROM tb_user AS u
+        <where>
+            <if test="tbUser.username != null and tbUser.username !=''">
+                AND u.username LIKE CONCAT('%',#{tbUser.username},'%')
+            </if>
+            <if test="tbUser.phone != null and tbUser.phone !=''">
+                AND u.phone LIKE CONCAT('%',#{tbUser.phone},'%')
+            </if>
+            <if test="tbUser.email != null and tbUser.email !=''">
+                AND u.email LIKE CONCAT('%',#{tbUser.email},'%')
+            </if>
+        </where>
+        LIMIT #{start},#{length}
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM tb_user as u
+        <where>
+            <if test="username != null and username !=''">
+                AND u.username LIKE CONCAT('%',#{username},'%')
+            </if>
+            <if test="phone != null and phone !=''">
+                AND u.phone LIKE CONCAT('%',#{phone},'%')
+            </if>
+            <if test="email != null and email !=''">
+                AND u.email LIKE CONCAT('%',#{email},'%')
+            </if>
+        </where>
+    </select>
+
+    <update id="update">
+        UPDATE tb_user
+        SET
+            username = #{username},
+            password = #{password},
+            phone = #{phone},
+            email = #{email},
+            created = #{created},
+            updated = #{updated},
+            level = #{level}
+        WHERE
+            id = #{id}
+    </update>
 </mapper>

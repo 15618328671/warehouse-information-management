@@ -3,6 +3,7 @@ package com.zk.warehouse.information.management.web.admin.web.controller;
 import com.zk.warehouse.information.management.commons.dto.BaseResult;
 import com.zk.warehouse.information.management.commons.dto.PageInfo;
 import com.zk.warehouse.information.management.domain.TbAdministrator;
+import com.zk.warehouse.information.management.web.admin.abstracts.AbstractBaseController;
 import com.zk.warehouse.information.management.web.admin.service.TbAdministratorService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,17 +24,14 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(value = "admin")
-public class AdminController {
-    @Autowired
-    private TbAdministratorService tbAdministratorService;
-
+public class AdminController extends AbstractBaseController<TbAdministrator,TbAdministratorService> {
     @ModelAttribute
     public TbAdministrator getTbAdministratorId(Long id){
         TbAdministrator tbAdministrator = null;
 
         //id不为空时获取用户信息
         if (id != null){
-            tbAdministrator = tbAdministratorService.getById(id);
+            tbAdministrator = service.getById(id);
         }
         else {
             tbAdministrator = new TbAdministrator();
@@ -48,7 +46,7 @@ public class AdminController {
      */
     @RequestMapping(value = "list",method = RequestMethod.GET)
     public String list(Model model){
-        List<TbAdministrator> tbAdministrators = tbAdministratorService.selectAll();
+        List<TbAdministrator> tbAdministrators = service.selectAll();
         model.addAttribute("tbAdministrators",tbAdministrators);
         return "admin_list";
     }
@@ -69,7 +67,7 @@ public class AdminController {
      */
     @RequestMapping(value = "save",method = RequestMethod.POST)
     public String save(TbAdministrator tbAdministrator, Model model, RedirectAttributes redirectAttributes){
-        BaseResult baseResult = tbAdministratorService.save(tbAdministrator);
+        BaseResult baseResult = service.save(tbAdministrator);
 
         //保存成功
         if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS){
@@ -91,10 +89,10 @@ public class AdminController {
     @ResponseBody
     @RequestMapping(value = "delete",method = RequestMethod.POST)
     public BaseResult delete(String ids){
-        BaseResult baseResult = null;
+        BaseResult baseResult;
         if (StringUtils.isNotBlank(ids)){
             String[] idArray = ids.split(",");
-            tbAdministratorService.deleteMulti(idArray);
+            service.deleteMulti(idArray);
             baseResult = BaseResult.success("删除成功");
         }
         else {
@@ -103,22 +101,7 @@ public class AdminController {
         return baseResult;
     }
 
-    @ResponseBody
-    @RequestMapping(value = "page",method = RequestMethod.GET)
-    public PageInfo<TbAdministrator> page(HttpServletRequest httpServletRequest,TbAdministrator tbAdministrator){
-        String strDraw = httpServletRequest.getParameter("draw");
-        String strStart = httpServletRequest.getParameter("start");
-        String strLength = httpServletRequest.getParameter("length");
 
-        int draw = strDraw == null ? 0 : Integer.parseInt(strDraw);
-        int start = strStart == null ? 0 : Integer.parseInt(strStart);
-        int length = strLength == null ? 10 : Integer.parseInt(strLength);
-
-        //封装DataTables服务器返回结果
-        PageInfo<TbAdministrator> pageInfo = tbAdministratorService.page(start, length, draw,tbAdministrator);
-
-        return pageInfo;
-    }
 
     @RequestMapping(value = "detail",method = RequestMethod.GET)
     public String detail(TbAdministrator tbAdministrator){

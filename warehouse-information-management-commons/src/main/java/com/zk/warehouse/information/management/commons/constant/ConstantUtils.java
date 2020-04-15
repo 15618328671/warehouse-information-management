@@ -6,5 +6,6 @@ package com.zk.warehouse.information.management.commons.constant;
  */
 public class ConstantUtils {
     public static final String SESSION_ADMINISTRATOR = "administrator";
-    public static final String COOKIE_NAME_ADMINISTRATOR_INFO = "administratorInfo";
+    public static final String SESSION_USER = "user";
+    public static final String COOKIE_NAME_INFO = "Information";
 }

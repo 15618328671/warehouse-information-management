@@ -8,7 +8,8 @@
         a.phone,
         a.email,
         a.created,
-        a.updated
+        a.updated,
+        a.level
     </sql>
 
     <select id="selectAll" resultType="TbAdministrator">

@@ -3,6 +3,7 @@ package com.zk.warehouse.information.management.web.admin.web.controller;
 import com.zk.warehouse.information.management.commons.dto.BaseResult;
 import com.zk.warehouse.information.management.commons.dto.PageInfo;
 import com.zk.warehouse.information.management.domain.TbCargo;
+import com.zk.warehouse.information.management.web.admin.abstracts.AbstractBaseController;
 import com.zk.warehouse.information.management.web.admin.service.TbCargoService;
 import com.zk.warehouse.information.management.web.admin.service.TbWarehouseService;
 import org.apache.commons.lang3.StringUtils;
@@ -24,10 +25,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(value = "cargo")
-public class CargoController {
-    @Autowired
-    private TbCargoService tbCargoService;
-
+public class CargoController extends AbstractBaseController<TbCargo,TbCargoService> {
     @Autowired
     private TbWarehouseService tbWarehouseService;
 
@@ -35,7 +33,7 @@ public class CargoController {
     public TbCargo getTbCargoId(Long id){
         TbCargo tbCargo = null;
         if (id != null){
-            tbCargo = tbCargoService.getById(id);
+            tbCargo = service.getById(id);
         }
         else {
             tbCargo = new TbCargo();
@@ -50,7 +48,7 @@ public class CargoController {
      */
     @RequestMapping(value = "list",method = RequestMethod.GET)
     public String list(Model model){
-        List<TbCargo> tbCargos = tbCargoService.selectAll();
+        List<TbCargo> tbCargos = service.selectAll();
         model.addAttribute("tbCargos",tbCargos);
         return "cargo_list";
     }
@@ -75,7 +73,7 @@ public class CargoController {
      */
     @RequestMapping(value = "save",method = RequestMethod.POST)
     public String save(TbCargo tbCargo, Model model, RedirectAttributes redirectAttributes){
-        BaseResult baseResult = tbCargoService.save(tbCargo);
+        BaseResult baseResult = service.save(tbCargo);
         //保存成功
         if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS){
             redirectAttributes.addFlashAttribute("baseResult",baseResult);
@@ -92,29 +90,6 @@ public class CargoController {
     }
 
     /**
-     * 分页功能
-     * @param httpServletRequest
-     * @param tbCargo
-     * @return
-     */
-    @ResponseBody
-    @RequestMapping(value = "page",method = RequestMethod.GET)
-    public PageInfo<TbCargo> page(HttpServletRequest httpServletRequest,TbCargo tbCargo){
-        String strDraw = httpServletRequest.getParameter("draw");
-        String strStart = httpServletRequest.getParameter("start");
-        String strLength = httpServletRequest.getParameter("length");
-
-        int draw = strDraw == null ? 0 : Integer.parseInt(strDraw);
-        int start = strStart == null ? 0 : Integer.parseInt(strStart);
-        int length = strLength == null ? 10 : Integer.parseInt(strLength);
-
-        //封装DataTables服务器返回结果
-        PageInfo<TbCargo> pageInfo = tbCargoService.page(start,length,draw,tbCargo);
-
-        return pageInfo;
-    }
-
-    /**
      * 删除
      * @param ids
      * @return
@@ -125,7 +100,7 @@ public class CargoController {
         BaseResult baseResult = null;
         if (StringUtils.isNotBlank(ids)) {
             String[] idArray = ids.split(",");
-            tbCargoService.deleteMulti(idArray);
+            service.deleteMulti(idArray);
             baseResult = BaseResult.success("删除成功");
         }
         else {

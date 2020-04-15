@@ -4,6 +4,7 @@ import com.zk.warehouse.information.management.commons.dto.BaseResult;
 import com.zk.warehouse.information.management.commons.dto.PageInfo;
 import com.zk.warehouse.information.management.domain.TbCargo;
 import com.zk.warehouse.information.management.domain.TbCargoRecord;
+import com.zk.warehouse.information.management.web.admin.abstracts.AbstractBaseController;
 import com.zk.warehouse.information.management.web.admin.service.TbCargoRecordService;
 import com.zk.warehouse.information.management.web.admin.service.TbWarehouseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +21,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping(value = "cargo/record")
-public class CargoRecordController {
-    @Autowired
-    private TbCargoRecordService tbCargoRecordService;
-
+public class CargoRecordController extends AbstractBaseController<TbCargoRecord,TbCargoRecordService> {
     @Autowired
     private TbWarehouseService tbWarehouseService;
 
@@ -31,7 +29,7 @@ public class CargoRecordController {
     public TbCargoRecord getTbCargoRecordById(Long id){
         TbCargoRecord tbCargoRecord =null;
         if (id != null){
-            tbCargoRecord = tbCargoRecordService.getById(id);
+            tbCargoRecord = service.getById(id);
         }
         else {
             tbCargoRecord = new TbCargoRecord();
@@ -41,26 +39,9 @@ public class CargoRecordController {
 
     @RequestMapping(value = "list",method = RequestMethod.GET)
     public String list(Model model){
-        List<TbCargoRecord> tbCargoRecords = tbCargoRecordService.selectAll();
+        List<TbCargoRecord> tbCargoRecords = service.selectAll();
         model.addAttribute("tbCargoRecords",tbCargoRecords);
         return "cargo_record_list";
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "page",method = RequestMethod.GET)
-    public PageInfo<TbCargoRecord> page(HttpServletRequest httpServletRequest,TbCargoRecord tbCargoRecord){
-        String strDraw = httpServletRequest.getParameter("draw");
-        String strStart = httpServletRequest.getParameter("start");
-        String strLength = httpServletRequest.getParameter("length");
-
-        int draw = strDraw == null ? 0 : Integer.parseInt(strDraw);
-        int start = strStart == null ? 0 : Integer.parseInt(strStart);
-        int length = strLength == null ? 10 : Integer.parseInt(strLength);
-
-        //封装DataTables服务器返回结果
-        PageInfo<TbCargoRecord> pageInfo = tbCargoRecordService.page(start,length,draw,tbCargoRecord);
-
-        return pageInfo;
     }
 
     @RequestMapping(value = "entry",method = RequestMethod.GET)
@@ -81,7 +62,7 @@ public class CargoRecordController {
 
     @RequestMapping(value = "entrySave",method = RequestMethod.POST)
     public String entrySave(TbCargoRecord tbCargoRecord, Model model, RedirectAttributes redirectAttributes){
-        BaseResult baseResult = tbCargoRecordService.save(tbCargoRecord);
+        BaseResult baseResult = service.save(tbCargoRecord);
         //保存成功
         if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS){
             redirectAttributes.addFlashAttribute("baseResult",baseResult);
@@ -98,7 +79,7 @@ public class CargoRecordController {
 
     @RequestMapping(value = "deliverySave",method = RequestMethod.POST)
     public String deliverySave(TbCargoRecord tbCargoRecord, Model model, RedirectAttributes redirectAttributes){
-        BaseResult baseResult = tbCargoRecordService.save(tbCargoRecord);
+        BaseResult baseResult = service.save(tbCargoRecord);
         //保存成功
         if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS){
             redirectAttributes.addFlashAttribute("baseResult",baseResult);
