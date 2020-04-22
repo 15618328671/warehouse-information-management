@@ -10,10 +10,10 @@
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
     <!-- 顶部导航 -->
-    <jsp:include page="../includes/nav.jsp"/>
+    <jsp:include page="../includes/user_nav.jsp"/>
 
     <!-- 左侧菜单 -->
-    <jsp:include page="../includes/leftmenu.jsp"/>
+    <jsp:include page="../includes/user_leftmenu.jsp"/>
 
     <!--文本内容 -->
     <div class="content-wrapper">
@@ -23,7 +23,7 @@
                 <small></small>
             </h1>
             <ol class="breadcrumb">
-                <li><a href="/main"><i class="fa fa-dashboard"></i> 首页</a></li>
+                <li><a href="/user_main"><i class="fa fa-dashboard"></i> 首页</a></li>
                 <li class="active">欢迎界面</li>
             </ol>
         </section>

@@ -32,22 +32,26 @@
             <td>仓库现容量：</td>
             <td>${tbWarehouse.inventory}</td>
         </tr>
-        <tr>
-            <td>最新入库数量：</td>
-            <td>${tbWarehouse.entryQuantity}</td>
-        </tr>
-        <tr>
-            <td>最新入库时间：</td>
-            <td><fmt:formatDate value="${tbWarehouse.entryTime}" pattern="yyyy-MM-dd HH:mm:ss"/> </td>
-        </tr>
-        <tr>
-            <td>最新出库数量：</td>
-            <td>${tbWarehouse.deliveryQuantity}</td>
-        </tr>
-        <tr>
-            <td>最新出库时间：</td>
-            <td><fmt:formatDate value="${tbWarehouse.deliveryTime}" pattern="yyyy-MM-dd HH:mm:ss"/> </td>
-        </tr>
+        <c:if test="${tbWarehouse.entryQuantity != null}">
+            <tr>
+                <td>最新入库数量：</td>
+                <td>${tbWarehouse.entryQuantity}</td>
+            </tr>
+            <tr>
+                <td>最新入库时间：</td>
+                <td><fmt:formatDate value="${tbWarehouse.entryTime}" pattern="yyyy-MM-dd HH:mm:ss"/> </td>
+            </tr>
+        </c:if>
+        <c:if test="${tbWarehouse.deliveryQuantity != null}">
+            <tr>
+                <td>最新出库数量：</td>
+                <td>${tbWarehouse.deliveryQuantity}</td>
+            </tr>
+            <tr>
+                <td>最新出库时间：</td>
+                <td><fmt:formatDate value="${tbWarehouse.deliveryTime}" pattern="yyyy-MM-dd HH:mm:ss"/> </td>
+            </tr>
+        </c:if>
         <tr>
             <td>创建时间：</td>
             <td><fmt:formatDate value="${tbWarehouse.created}" pattern="yyyy-MM-dd HH:mm:ss"/> </td>

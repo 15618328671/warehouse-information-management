@@ -47,7 +47,7 @@
                             </c:if>
 
                             <div class="box-body">
-                                <a href="#" type="button" class="btn btn-sm btn-default "><i class="fa fa-download"></i>导出</a>
+                                <a href="/cargo/record/export" type="button" class="btn btn-sm btn-default "><i class="fa fa-download"></i>导出</a>
                             </div>
 
                             <div class="row form-horizontal">
@@ -97,6 +97,7 @@
                                     <th>出库数量</th>
                                     <th>出库时间</th>
                                     <th>现存货数量</th>
+                                    <th>操作人员</th>
                                     <th>操作</th>
                                 </tr>
                                 </thead>
@@ -139,25 +140,37 @@
             { "data": "entryQuantity"},
             {
                 "data": "entryTime",
-                "render": function changeDateFormat(date) {
-                    var changeDate = new Date(date).toJSON();
-                    return new Date(+new Date(changeDate) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
+                // "render": function changeDateFormat(date) {
+                //     var changeDate = new Date(date).toJSON();
+                //     return new Date(+new Date(changeDate) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
+                // }
+                "render":function (date) {
+                    if (date){
+                        return new Date(+new Date(date) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
+                    }else {
+                        return date ='';
+                    }
                 }
             },
             { "data": "deliveryQuantity"},
             {
                 "data": "deliveryTime",
-                "render": function changeDateFormat(date) {
-                    var changeDate = new Date(date).toJSON();
-                    return new Date(+new Date(changeDate) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
+                "render": function (date) {
+                    if (date){
+                        return new Date(+new Date(date) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
+                    }else {
+                        return date = '';
+                    }
                 }
             },
             { "data": "inventory" },
+            { "data": "handlers"},
             {
                 "data": function ( row, type, val, meta ){
                     var _detailUrl = "/cargo/record/detail?id="+row.id;
                     var _deleteUrl = "/cargo/record/delete?ids="+row.id;
                     return '<button type="button" class="btn btn-sm btn-default" onclick="App.searchDetail(\''+_detailUrl+'\')"><i class="fa fa-search"></i> 查看</button>&nbsp;&nbsp;&nbsp;'
+                        +'<a href="#" type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> 评论</a>&nbsp;&nbsp;&nbsp;'
                         +'<button type="button" class="btn btn-sm btn-danger" onclick="App.delete(\''+_deleteUrl+'\')"><i class="fa fa-trash-o"></i> 删除</button> '
                 }
             }

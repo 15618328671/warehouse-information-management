@@ -28,22 +28,26 @@
             <td>货物总量：</td>
             <td>${tbCargo.inventory}</td>
         </tr>
-        <tr>
-            <td>最新入库数量：</td>
-            <td>${tbCargo.entryQuantity}</td>
-        </tr>
-        <tr>
-            <td>最新入库时间：</td>
-            <td><fmt:formatDate value="${tbCargo.entryTime}" pattern="yyyy-MM-dd HH:mm:ss"/> </td>
-        </tr>
-        <tr>
-            <td>最新出库数量：</td>
-            <td>${tbCargo.deliveryQuantity}</td>
-        </tr>
-        <tr>
-            <td>最新出库时间：</td>
-            <td><fmt:formatDate value="${tbCargo.deliveryTime}" pattern="yyyy-MM-dd HH:mm:ss"/> </td>
-        </tr>
+        <c:if test="${tbCargo.entryQuantity != null}">
+            <tr>
+                <td>最新入库数量：</td>
+                <td>${tbCargo.entryQuantity}</td>
+            </tr>
+            <tr>
+                <td>最新入库时间：</td>
+                <td><fmt:formatDate value="${tbCargo.entryTime}" pattern="yyyy-MM-dd HH:mm:ss"/> </td>
+            </tr>
+        </c:if>
+        <c:if test="${tbCargo.deliveryQuantity != null}">
+            <tr>
+                <td>最新出库数量：</td>
+                <td>${tbCargo.deliveryQuantity}</td>
+            </tr>
+            <tr>
+                <td>最新出库时间：</td>
+                <td><fmt:formatDate value="${tbCargo.deliveryTime}" pattern="yyyy-MM-dd HH:mm:ss"/> </td>
+            </tr>
+        </c:if>
         <tr>
             <td>创建时间：</td>
             <td><fmt:formatDate value="${tbCargo.created}" pattern="yyyy-MM-dd HH:mm:ss"/> </td>

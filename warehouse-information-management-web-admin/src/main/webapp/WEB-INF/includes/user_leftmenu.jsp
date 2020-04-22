@@ -8,10 +8,10 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="../../static/assets/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="../../static/assets/img/avatar04.png" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-                <p>${administrator.username}</p>
+                <p>${user.username}</p>
                 <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
             </div>
         </div>
@@ -26,8 +26,7 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="active"><a href="/admin/list"><i class="fa fa-circle-o"></i> 管理员列表</a></li>
-                    <li class="active"><a href="/user/list"><i class="fa fa-circle-o"></i> 用户列表</a></li>
+                    <li class="active"><a href="/user/information?id=${user.id}"><i class="fa fa-circle-o"></i> 个人信息</a></li>
                 </ul>
             </li>
             <li class="active treeview">
@@ -38,9 +37,9 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="active"><a href="/warehouse/list"><i class="fa fa-circle-o"></i> 内容分类</a></li>
-                    <li class="active"><a href="/cargo/list"><i class="fa fa-circle-o"></i> 货物列表</a></li>
-                    <li class="active"><a href="/cargo/record/list"><i class="fa fa-circle-o"></i> 货物流动记录</a></li>
+                    <li class="active"><a href="#"><i class="fa fa-circle-o"></i> 内容分类</a></li>
+                    <li class="active"><a href="#"><i class="fa fa-circle-o"></i> 货物列表</a></li>
+                    <li class="active"><a href="#"><i class="fa fa-circle-o"></i> 货物流动记录</a></li>
                 </ul>
             </li>
         </ul>

@@ -27,7 +27,7 @@
             </h1>
             <ol class="breadcrumb">
                 <li><a href="/main"><i class="fa fa-dashboard"></i> 首页</a></li>
-                <li class="active">管理员列表</li>
+                <li class="active">用户列表</li>
             </ol>
         </section>
 
@@ -37,7 +37,7 @@
                 <div class="col-xs-12">
                     <div class="box">
                         <div class="box-header">
-                            <h3 class="box-title">管理员列表</h3>
+                            <h3 class="box-title">用户列表</h3>
 
                             <c:if test="${baseResult.status == 200}">
                                 <div class="alert alert-success alert-dismissible">
@@ -47,9 +47,8 @@
                             </c:if>
 
                             <div class="box-body">
-                                <a href="/admin/form" type="button" class="btn btn-sm btn-default "><i class="fa fa-plus"></i>新增</a>&nbsp;&nbsp;&nbsp;
-                                <a type="button" class="btn btn-sm btn-default " onclick="App.deleteMulti('/admin/delete')"><i class="fa fa-trash-o"></i>删除</a>&nbsp;&nbsp;&nbsp;
-                                <a href="#" type="button" class="btn btn-sm btn-default "><i class="fa fa-download"></i>导出</a>
+                                <a href="/user/form" type="button" class="btn btn-sm btn-default "><i class="fa fa-plus"></i>新增</a>&nbsp;&nbsp;&nbsp;
+                                <a type="button" class="btn btn-sm btn-default " onclick="App.deleteMulti('/user/delete')"><i class="fa fa-trash-o"></i>删除</a>&nbsp;&nbsp;&nbsp;
                             </div>
 
                             <div class="row form-horizontal">
@@ -145,15 +144,15 @@
             },
             {
                 "data": function ( row, type, val, meta ){
-                    var _detailUrl = "/admin/detail?id="+row.id;
-                    var _deleteUrl = "/admin/delete?ids="+row.id;
+                    var _detailUrl = "/user/detail?id="+row.id;
+                    var _deleteUrl = "/user/delete?ids="+row.id;
                     return '<button type="button" class="btn btn-sm btn-default" onclick="App.searchDetail(\''+_detailUrl+'\')"><i class="fa fa-search"></i> 查看</button>&nbsp;&nbsp;&nbsp;'
-                        +'<a href="/admin/form?id='+row.id+'" type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> 编辑</a>&nbsp;&nbsp;&nbsp;'
+                        +'<a href="/user/form?id='+row.id+'" type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> 编辑</a>&nbsp;&nbsp;&nbsp;'
                         +'<button type="button" class="btn btn-sm btn-danger" onclick="App.delete(\''+_deleteUrl+'\')"><i class="fa fa-trash-o"></i> 删除</button> '
                 }
             }
         ];
-        _dataTables = App.initPage("/admin/page",_columns);
+        _dataTables = App.initPage("/user/page",_columns);
     });
 
     function search() {

@@ -81,6 +81,13 @@
                                         <form:input path="deliveryQuantity" cssClass="form-control required" placeholder="请输入入库数量"/>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">操作人员</label>
+
+                                    <div class="col-sm-10">
+                                        <form:input path="handlers" cssClass="form-control required" value="${administrator.username != null?administrator.username:user.username}" readonly="true"/>
+                                    </div>
+                                </div>
                             </div>
                             <div class="box-footer">
                                 <button type="button" class="btn btn-default" onclick="history.go(-1)">返回</button>

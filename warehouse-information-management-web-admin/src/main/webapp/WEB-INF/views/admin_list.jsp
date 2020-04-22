@@ -49,7 +49,6 @@
                             <div class="box-body">
                                 <a href="/admin/form" type="button" class="btn btn-sm btn-default "><i class="fa fa-plus"></i>新增</a>&nbsp;&nbsp;&nbsp;
                                 <a type="button" class="btn btn-sm btn-default " onclick="App.deleteMulti('/admin/delete')"><i class="fa fa-trash-o"></i>删除</a>&nbsp;&nbsp;&nbsp;
-                                <a href="#" type="button" class="btn btn-sm btn-default "><i class="fa fa-download"></i>导出</a>
                             </div>
 
                             <div class="row form-horizontal">

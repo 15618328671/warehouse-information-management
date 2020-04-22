@@ -28,7 +28,7 @@
             <td>货物现存量：</td>
             <td>${tbCargoRecord.inventory}</td>
         </tr>
-        <c:if test="${tbCargoRecord.entryQuantity} !=null">
+        <c:if test="${tbCargoRecord.entryQuantity != null}">
             <tr>
                 <td>最新入库数量：</td>
                 <td>${tbCargoRecord.entryQuantity}</td>
@@ -38,7 +38,7 @@
                 <td><fmt:formatDate value="${tbCargoRecord.entryTime}" pattern="yyyy-MM-dd HH:mm:ss"/> </td>
             </tr>
         </c:if>
-        <c:if test="${tbCargoRecord.deliveryQuantity} != null">
+        <c:if test="${tbCargoRecord.deliveryQuantity != null}">
             <tr>
                 <td>最新出库数量：</td>
                 <td>${tbCargoRecord.deliveryQuantity}</td>
@@ -55,6 +55,10 @@
         <tr>
             <td>更新时间：</td>
             <td><fmt:formatDate value="${tbCargoRecord.updated}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+        </tr>
+        <tr>
+            <td>操作人员：</td>
+            <td>${tbCargoRecord.handlers}</td>
         </tr>
         </tbody>
     </table>
