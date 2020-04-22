@@ -52,7 +52,6 @@
                             <div class="box-body">
                                 <a href="/warehouse/form" type="button" class="btn btn-sm btn-default "><i
                                         class="fa fa-plus"></i>新增仓库</a>&nbsp;&nbsp;&nbsp;
-                                <a href="#" type="button" class="btn btn-sm btn-default "><i class="fa fa-download"></i>导出</a>
                             </div>
 
                             <div class="box-body table-responsive no-padding">

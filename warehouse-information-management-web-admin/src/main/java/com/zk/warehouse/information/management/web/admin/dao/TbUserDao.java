@@ -1,6 +1,7 @@
 package com.zk.warehouse.information.management.web.admin.dao;
 
 import com.zk.warehouse.information.management.commons.persistence.BaseDao;
+import com.zk.warehouse.information.management.domain.TbAdministrator;
 import com.zk.warehouse.information.management.domain.TbUser;
 import org.springframework.stereotype.Repository;
 
@@ -16,6 +17,20 @@ public interface TbUserDao extends BaseDao<TbUser> {
      * @return
      */
     int haveUsername(TbUser tbUser);
+
+    /**
+     * 手机号是否存在
+     * @param tbUser
+     * @return
+     */
+    int havePhone(TbUser tbUser);
+
+    /**
+     * 电子邮箱是否存在
+     * @param tbUser
+     * @return
+     */
+    int haveEmail(TbUser tbUser);
 
     /**
      * 根据用户名获取用户信息

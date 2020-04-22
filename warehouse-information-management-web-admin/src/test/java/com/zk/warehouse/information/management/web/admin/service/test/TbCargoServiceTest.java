@@ -1,5 +1,6 @@
 package com.zk.warehouse.information.management.web.admin.service.test;
 
+import com.zk.warehouse.information.management.commons.constant.ConstantUtils;
 import com.zk.warehouse.information.management.domain.TbCargo;
 import com.zk.warehouse.information.management.web.admin.dao.TbCargoDao;
 import org.junit.Test;
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.net.ssl.HandshakeCompletedEvent;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 

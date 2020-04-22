@@ -27,7 +27,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li class="active"><a href="/admin/list"><i class="fa fa-circle-o"></i> 管理员列表</a></li>
-                    <li class="active"><a href="#"><i class="fa fa-circle-o"></i> 用户列表</a></li>
+                    <li class="active"><a href="/user/list"><i class="fa fa-circle-o"></i> 用户列表</a></li>
                 </ul>
             </li>
             <li class="active treeview">

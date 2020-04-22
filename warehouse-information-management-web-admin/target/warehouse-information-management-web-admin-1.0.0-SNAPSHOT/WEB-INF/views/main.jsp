@@ -20,7 +20,6 @@
         <!-- 文本头 -->
         <section class="content-header">
             <h1>
-                欢迎界面
                 <small></small>
             </h1>
             <ol class="breadcrumb">

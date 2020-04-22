@@ -1,10 +1,12 @@
 package com.zk.warehouse.information.management.web.admin.service.impl;
 
+import com.zk.warehouse.information.management.commons.constant.ConstantUtils;
 import com.zk.warehouse.information.management.commons.dto.BaseResult;
 import com.zk.warehouse.information.management.commons.dto.PageInfo;
 import com.zk.warehouse.information.management.commons.validator.BeanValidator;
 import com.zk.warehouse.information.management.domain.TbCargo;
 import com.zk.warehouse.information.management.domain.TbCargoRecord;
+import com.zk.warehouse.information.management.domain.TbUser;
 import com.zk.warehouse.information.management.domain.TbWarehouse;
 import com.zk.warehouse.information.management.web.admin.dao.TbCargoDao;
 import com.zk.warehouse.information.management.web.admin.dao.TbCargoRecordDao;
@@ -14,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;

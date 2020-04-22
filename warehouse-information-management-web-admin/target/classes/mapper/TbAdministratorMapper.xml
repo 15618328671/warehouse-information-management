@@ -114,9 +114,13 @@
         </where>
     </select>
 
-    <select id="countUsername" resultType="integer">
+    <select id="haveUsername" resultType="integer">
         SELECT
         COUNT(*)
+        FROM
+        (
+        SELECT
+        *
         FROM
         tb_administrator AS a
         WHERE
@@ -124,11 +128,26 @@
         <if test="id != null and id !=''">
             AND a.id &lt;&gt; #{id}
         </if>
+        UNION
+        SELECT
+        *
+        FROM
+        tb_user AS u
+        WHERE
+        u.username = #{username}
+        <if test="id != null and id !=''">
+            AND u.id &lt;&gt; #{id}
+        </if>
+        ) as c
     </select>
 
-    <select id="countPhone" resultType="integer">
+    <select id="havePhone" resultType="integer">
         SELECT
         COUNT(*)
+        FROM
+        (
+        SELECT
+        *
         FROM
         tb_administrator AS a
         WHERE
@@ -136,11 +155,26 @@
         <if test="id != null and id !=''">
             AND a.id &lt;&gt; #{id}
         </if>
+        UNION
+        SELECT
+        *
+        FROM
+        tb_user AS u
+        WHERE
+        u.phone = #{phone}
+        <if test="id != null and id !=''">
+            AND u.id &lt;&gt; #{id}
+        </if>
+        ) as c
     </select>
 
-    <select id="countEmail" resultType="integer">
+    <select id="haveEmail" resultType="integer">
         SELECT
         COUNT(*)
+        FROM
+        (
+        SELECT
+        *
         FROM
         tb_administrator AS a
         WHERE
@@ -148,5 +182,16 @@
         <if test="id != null and id !=''">
             AND a.id &lt;&gt; #{id}
         </if>
+        UNION
+        SELECT
+        *
+        FROM
+        tb_user AS u
+        WHERE
+        u.email = #{email}
+        <if test="id != null and id !=''">
+            AND u.id &lt;&gt; #{id}
+        </if>
+        ) as c
     </select>
 </mapper>

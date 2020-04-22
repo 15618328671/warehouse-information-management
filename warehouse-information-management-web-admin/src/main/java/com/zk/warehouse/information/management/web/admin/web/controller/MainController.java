@@ -15,4 +15,9 @@ public class MainController {
     public String main(){
         return "main";
     }
+
+    @RequestMapping(value = "user_main",method = RequestMethod.GET)
+    public String userMain(){
+        return "user_main";
+    }
 }

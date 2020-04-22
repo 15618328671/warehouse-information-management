@@ -81,5 +81,13 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
         <!-- Database End -->
+
+        <!-- Apache POI Begin -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+        </dependency>
+        <!-- Apache POI End -->
+
     </dependencies>
 </project>

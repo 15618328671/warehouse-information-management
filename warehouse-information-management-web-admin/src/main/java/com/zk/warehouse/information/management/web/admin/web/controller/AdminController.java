@@ -61,6 +61,15 @@ public class AdminController extends AbstractBaseController<TbAdministrator,TbAd
     }
 
     /**
+     * 跳转到修改管理员个人信息页
+     * @return
+     */
+    @RequestMapping(value = "information/form",method = RequestMethod.GET)
+    public String informationForm(){
+        return "admin_information_form";
+    }
+
+    /**
      * 保存用户信息
      * @param tbAdministrator
      * @return
@@ -78,6 +87,27 @@ public class AdminController extends AbstractBaseController<TbAdministrator,TbAd
         else {
             model.addAttribute("baseResult", baseResult);
             return "admin_form";
+        }
+    }
+
+    /**
+     * 保存用户个人信息
+     * @param tbAdministrator
+     * @return
+     */
+    @RequestMapping(value = "information/save",method = RequestMethod.POST)
+    public String informationSave(TbAdministrator tbAdministrator, Model model, RedirectAttributes redirectAttributes){
+        BaseResult baseResult = service.save(tbAdministrator);
+
+        //保存成功
+        if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS){
+            redirectAttributes.addFlashAttribute("baseResult", baseResult);
+            return "redirect:/admin/information";
+        }
+        //保存失败
+        else {
+            model.addAttribute("baseResult", baseResult);
+            return "admin_information_form";
         }
     }
 
@@ -106,5 +136,10 @@ public class AdminController extends AbstractBaseController<TbAdministrator,TbAd
     @RequestMapping(value = "detail",method = RequestMethod.GET)
     public String detail(TbAdministrator tbAdministrator){
         return "admin_detail";
+    }
+
+    @RequestMapping(value = "information",method = RequestMethod.GET)
+    public String information(){
+        return "admin_information";
     }
 }

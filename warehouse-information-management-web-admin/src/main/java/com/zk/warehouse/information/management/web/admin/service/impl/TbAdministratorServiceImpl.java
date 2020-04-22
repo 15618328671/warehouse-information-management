@@ -42,7 +42,7 @@ public class TbAdministratorServiceImpl implements TbAdministratorService {
                 return tbAdministrator;
             }
         }
-        return null;
+        return tbAdministrator;
     }
 
     @Override
@@ -63,14 +63,15 @@ public class TbAdministratorServiceImpl implements TbAdministratorService {
                 if (tbAdministrator.getId() == null) {
 
                     //md5密码加密处理
-                    tbAdministrator.setPassword(DigestUtils.md5DigestAsHex(tbAdministrator.getUsername().getBytes()));
+                    tbAdministrator.setPassword(DigestUtils.md5DigestAsHex(tbAdministrator.getPassword().getBytes()));
                     tbAdministrator.setCreated(new Date());
+                    tbAdministrator.setLevel(true);
                     tbAdministratorDao.insert(tbAdministrator);
                 }
                 //编辑用户
                 else {
                     //md5密码加密处理
-                    tbAdministrator.setPassword(DigestUtils.md5DigestAsHex(tbAdministrator.getUsername().getBytes()));
+                    tbAdministrator.setPassword(DigestUtils.md5DigestAsHex(tbAdministrator.getPassword().getBytes()));
                     tbAdministratorDao.update(tbAdministrator);
                 }
                 return BaseResult.success("保存用户信息成功");
@@ -126,11 +127,11 @@ public class TbAdministratorServiceImpl implements TbAdministratorService {
      */
     private BaseResult checkAdministrator(TbAdministrator tbAdministrator) {
         BaseResult baseResult = BaseResult.success();
-        if (tbAdministratorDao.countUsername(tbAdministrator) > 0) {
+        if (tbAdministratorDao.haveUsername(tbAdministrator) > 0) {
             baseResult = BaseResult.fail("用户名已存在,请重新输入");
-        } else if (tbAdministratorDao.countPhone(tbAdministrator) > 0) {
+        } else if (tbAdministratorDao.havePhone(tbAdministrator) > 0) {
             baseResult = BaseResult.fail("手机号已注册,请重新输入");
-        } else if (tbAdministratorDao.countEmail(tbAdministrator) > 0) {
+        } else if (tbAdministratorDao.haveEmail(tbAdministrator) > 0) {
             baseResult = BaseResult.fail("邮箱已注册,请重新输入");
         }
         return baseResult;

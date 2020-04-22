@@ -22,18 +22,18 @@ public interface TbAdministratorDao extends BaseDao<TbAdministrator> {
      * @param tbAdministrator
      * @return
      */
-    int countUsername(TbAdministrator tbAdministrator);
+    int haveUsername(TbAdministrator tbAdministrator);
     /**
      * 手机号是否存在
      * @param tbAdministrator
      * @return
      */
-    int countPhone(TbAdministrator tbAdministrator);
+    int havePhone(TbAdministrator tbAdministrator);
 
     /**
      * 电子邮箱是否存在
      * @param tbAdministrator
      * @return
      */
-    int countEmail(TbAdministrator tbAdministrator);
+    int haveEmail(TbAdministrator tbAdministrator);
 }

@@ -97,8 +97,8 @@ public class UserController extends AbstractBaseController<TbUser, TbUserService
 
         //保存成功
         if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS){
-            redirectAttributes.addFlashAttribute("baseResult", baseResult);
-            return "redirect:/user/information";
+            model.addAttribute("baseResult", baseResult);
+            return "user_information";
         }
         //保存失败
         else {
