@@ -60,6 +60,60 @@
         ) as c
     </select>
 
+    <select id="havePhone" resultType="integer">
+        SELECT
+        COUNT(*)
+        FROM
+        (
+        SELECT
+        *
+        FROM
+        tb_user AS u
+        WHERE
+        u.phone = #{phone}
+        <if test="id != null and id !=''">
+            AND u.id &lt;&gt; #{id}
+        </if>
+        UNION
+        SELECT
+        *
+        FROM
+        tb_administrator AS a
+        WHERE
+        a.phone = #{phone}
+        <if test="id != null and id !=''">
+            AND a.id &lt;&gt; #{id}
+        </if>
+        ) as c
+    </select>
+
+    <select id="haveEmail" resultType="integer">
+        SELECT
+        COUNT(*)
+        FROM
+        (
+        SELECT
+        *
+        FROM
+        tb_user AS u
+        WHERE
+        u.email = #{email}
+        <if test="id != null and id !=''">
+            AND u.id &lt;&gt; #{id}
+        </if>
+        UNION
+        SELECT
+        *
+        FROM
+        tb_administrator AS a
+        WHERE
+        a.email = #{email}
+        <if test="id != null and id !=''">
+            AND a.id &lt;&gt; #{id}
+        </if>
+        ) as c
+    </select>
+
     <select id="getByUsername" resultType="TbUser">
         SELECT
         <include refid="tbUserColumns"/>
@@ -123,4 +177,20 @@
         WHERE
             id = #{id}
     </update>
+
+    <select id="getById" resultType="TbUser">
+        SELECT
+        <include refid="tbUserColumns"/>
+        FROM
+        tb_user as u
+        WHERE
+        u.id = #{id}
+    </select>
+
+    <select id="selectAll" resultType="TbUser">
+        SELECT
+        <include refid="tbUserColumns"/>
+        FROM
+        tb_user as u
+    </select>
 </mapper>

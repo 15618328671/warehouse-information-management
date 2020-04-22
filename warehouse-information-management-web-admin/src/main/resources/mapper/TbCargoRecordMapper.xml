@@ -12,7 +12,9 @@
         c.entry_quantity,
         c.entry_time,
         c.delivery_quantity,
-        c.delivery_time
+        c.delivery_time,
+        c.handlers,
+        c.comment
     </sql>
 
     <select id="selectAll" resultType="TbCargoRecord">
@@ -70,7 +72,9 @@
             entry_quantity,
             entry_time,
             delivery_quantity,
-            delivery_time
+            delivery_time,
+            handlers,
+            comment
         )
         VALUES (
             #{id},
@@ -83,7 +87,9 @@
             #{entryQuantity},
             #{entryTime},
             #{deliveryQuantity},
-            #{deliveryTime}
+            #{deliveryTime},
+            #{handlers},
+            #{comment}
         )
     </insert>
 
@@ -96,7 +102,9 @@
             entry_quantity = #{entryQuantity},
             entry_time = #{entryTime},
             delivery_quantity = #{deliveryQuantity},
-            delivery_time = #{deliveryTime}
+            delivery_time = #{deliveryTime},
+            handlers = #{handlers},
+            comment = #{comment}
         WHERE
             id = #{id}
     </update>
