@@ -6,16 +6,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>兴仁农贸市场果菜仓库信息管理系统 | 货物记录</title>
+    <title>兴仁农贸市场果菜仓库信息管理系统 | 货物管理</title>
     <jsp:include page="../includes/header.jsp"/>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
     <!-- 顶部导航 -->
-    <jsp:include page="../includes/nav.jsp"/>
+    <jsp:include page="../includes/user_nav.jsp"/>
 
     <!-- 左侧菜单 -->
-    <jsp:include page="../includes/leftmenu.jsp"/>
+    <jsp:include page="../includes/user_leftmenu.jsp"/>
 
     <!--文本内容 -->
     <div class="content-wrapper">
@@ -26,8 +26,8 @@
                 <small></small>
             </h1>
             <ol class="breadcrumb">
-                <li><a href="/main"><i class="fa fa-dashboard"></i> 首页</a></li>
-                <li class="active">货物记录</li>
+                <li><a href="/user_main"><i class="fa fa-dashboard"></i> 首页</a></li>
+                <li class="active">货物列表</li>
             </ol>
         </section>
 
@@ -37,7 +37,7 @@
                 <div class="col-xs-12">
                     <div class="box">
                         <div class="box-header">
-                            <h3 class="box-title">货物记录</h3>
+                            <h3 class="box-title">货物列表</h3>
 
                             <c:if test="${baseResult.status == 200}">
                                 <div class="alert alert-success alert-dismissible">
@@ -45,9 +45,15 @@
                                         ${baseResult.message}
                                 </div>
                             </c:if>
+                            <c:if test="${baseResult.status == 500}">
+                                <div class="alert alert-danger alert-dismissible">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                        ${baseResult.message}
+                                </div>
+                            </c:if>
 
                             <div class="box-body">
-                                <a href="/cargo/record/export" type="button" class="btn btn-sm btn-default "><i class="fa fa-download"></i>导出</a>
+                                <a href="/cargo/user_export" type="button" class="btn btn-sm btn-default "><i class="fa fa-download"></i>导出</a>
                             </div>
 
                             <div class="row form-horizontal">
@@ -92,12 +98,8 @@
                                     <th>货物编号</th>
                                     <th>货物名</th>
                                     <th>所属仓库</th>
-                                    <th>入库数量</th>
-                                    <th>入库时间</th>
-                                    <th>出库数量</th>
-                                    <th>出库时间</th>
-                                    <th>现存货数量</th>
-                                    <th>操作人员</th>
+                                    <th>货物总量</th>
+                                    <th>更新时间</th>
                                     <th>操作</th>
                                 </tr>
                                 </thead>
@@ -137,41 +139,24 @@
             { "data": "number" },
             { "data": "name" },
             { "data": "parentId" },
-            { "data": "entryQuantity"},
-            {
-                "data": "entryTime",
-                "render":function (date) {
-                    if (date){
-                        return new Date(+new Date(date) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
-                    }else {
-                        return date ='';
-                    }
-                }
-            },
-            { "data": "deliveryQuantity"},
-            {
-                "data": "deliveryTime",
-                "render": function (date) {
-                    if (date){
-                        return new Date(+new Date(date) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
-                    }else {
-                        return date = '';
-                    }
-                }
-            },
             { "data": "inventory" },
-            { "data": "handlers"},
+            {
+                "data": "updated",
+                "render": function changeDateFormat(date) {
+                    var changeDate = new Date(date).toJSON();
+                    return new Date(+new Date(changeDate) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
+                }
+            },
             {
                 "data": function ( row, type, val, meta ){
-                    var _detailUrl = "/cargo/record/detail?id="+row.id;
-                    var _deleteUrl = "/cargo/record/delete?ids="+row.id;
+                    var _detailUrl = "/cargo/detail?id="+row.id;
                     return '<button type="button" class="btn btn-sm btn-default" onclick="App.searchDetail(\''+_detailUrl+'\')"><i class="fa fa-search"></i> 查看</button>&nbsp;&nbsp;&nbsp;'
-                        +'<a href="#" type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> 评论</a>&nbsp;&nbsp;&nbsp;'
-                        +'<button type="button" class="btn btn-sm btn-danger" onclick="App.delete(\''+_deleteUrl+'\')"><i class="fa fa-trash-o"></i> 删除</button> '
+                        +'<a href="/cargo/record/user_entry?parentId='+row.parentId+'&name='+row.name+'&number='+row.number+'" type="button" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> 入库</a>&nbsp;&nbsp;&nbsp;'
+                        +'<a href="/cargo/record/user_delivery?parentId='+row.parentId+'&name='+row.name+'&number='+row.number+'" type="button" class="btn btn-sm btn-primary"><i class="fa fa-minus"></i> 出库</a>&nbsp;&nbsp;&nbsp;'
                 }
             }
         ];
-        _dataTables = App.initPage("/cargo/record/page",_columns);
+        _dataTables = App.initPage("/cargo/page",_columns);
     });
 
     function search() {

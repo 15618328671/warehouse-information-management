@@ -37,9 +37,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="active"><a href="#"><i class="fa fa-circle-o"></i> 内容分类</a></li>
-                    <li class="active"><a href="#"><i class="fa fa-circle-o"></i> 货物列表</a></li>
-                    <li class="active"><a href="#"><i class="fa fa-circle-o"></i> 货物流动记录</a></li>
+                    <li class="active"><a href="/user/cargo/list"><i class="fa fa-circle-o"></i> 货物列表</a></li>
+                    <li class="active"><a href="/cargo/record/user_list"><i class="fa fa-circle-o"></i> 货物流动记录</a></li>
                 </ul>
             </li>
         </ul>

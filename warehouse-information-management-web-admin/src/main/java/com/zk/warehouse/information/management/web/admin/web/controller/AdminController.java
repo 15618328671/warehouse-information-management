@@ -101,8 +101,8 @@ public class AdminController extends AbstractBaseController<TbAdministrator,TbAd
 
         //保存成功
         if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS){
-            redirectAttributes.addFlashAttribute("baseResult", baseResult);
-            return "redirect:/admin/information";
+            model.addAttribute("baseResult", baseResult);
+            return "admin_information";
         }
         //保存失败
         else {

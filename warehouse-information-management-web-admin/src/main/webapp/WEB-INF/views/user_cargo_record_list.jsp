@@ -12,10 +12,10 @@
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
     <!-- 顶部导航 -->
-    <jsp:include page="../includes/nav.jsp"/>
+    <jsp:include page="../includes/user_nav.jsp"/>
 
     <!-- 左侧菜单 -->
-    <jsp:include page="../includes/leftmenu.jsp"/>
+    <jsp:include page="../includes/user_leftmenu.jsp"/>
 
     <!--文本内容 -->
     <div class="content-wrapper">
@@ -26,7 +26,7 @@
                 <small></small>
             </h1>
             <ol class="breadcrumb">
-                <li><a href="/main"><i class="fa fa-dashboard"></i> 首页</a></li>
+                <li><a href="/user_main"><i class="fa fa-dashboard"></i> 首页</a></li>
                 <li class="active">货物记录</li>
             </ol>
         </section>
@@ -47,7 +47,7 @@
                             </c:if>
 
                             <div class="box-body">
-                                <a href="/cargo/record/export" type="button" class="btn btn-sm btn-default "><i class="fa fa-download"></i>导出</a>
+                                <a href="/cargo/record/user_export" type="button" class="btn btn-sm btn-default "><i class="fa fa-download"></i>导出</a>
                             </div>
 
                             <div class="row form-horizontal">
@@ -166,12 +166,11 @@
                     var _detailUrl = "/cargo/record/detail?id="+row.id;
                     var _deleteUrl = "/cargo/record/delete?ids="+row.id;
                     return '<button type="button" class="btn btn-sm btn-default" onclick="App.searchDetail(\''+_detailUrl+'\')"><i class="fa fa-search"></i> 查看</button>&nbsp;&nbsp;&nbsp;'
-                        +'<a href="#" type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> 评论</a>&nbsp;&nbsp;&nbsp;'
                         +'<button type="button" class="btn btn-sm btn-danger" onclick="App.delete(\''+_deleteUrl+'\')"><i class="fa fa-trash-o"></i> 删除</button> '
                 }
             }
         ];
-        _dataTables = App.initPage("/cargo/record/page",_columns);
+        _dataTables = App.initPage("/cargo/record/user_page",_columns);
     });
 
     function search() {

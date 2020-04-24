@@ -19,4 +19,6 @@ public class TbCargoRecord extends BaseEntity {
     private Date entryTime;
     private Double deliveryQuantity;
     private Date deliveryTime;
+    private String handlers;
+    private String comment;
 }

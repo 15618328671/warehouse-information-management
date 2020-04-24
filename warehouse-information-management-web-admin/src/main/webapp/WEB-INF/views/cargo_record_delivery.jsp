@@ -85,7 +85,7 @@
                                     <label class="col-sm-2 control-label">操作人员</label>
 
                                     <div class="col-sm-10">
-                                        <form:input path="handlers" cssClass="form-control required" value="${administrator.username != null?administrator.username:user.username}" readonly="true"/>
+                                        <form:input path="handlers" cssClass="form-control required" value="${administrator.username}" readonly="true"/>
                                     </div>
                                 </div>
                             </div>

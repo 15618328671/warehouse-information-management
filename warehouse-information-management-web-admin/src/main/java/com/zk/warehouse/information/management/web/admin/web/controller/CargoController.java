@@ -123,7 +123,7 @@ public class CargoController extends AbstractBaseController<TbCargo,TbCargoServi
     @RequestMapping(value = "export",method = RequestMethod.GET)
     public String export(Model model){
         List<TbCargo> tbCargos = service.selectAll();
-        BaseResult baseResult = BaseResult.success("导出成功,表格目录为D:\\warehouse\\download");
+        BaseResult baseResult = BaseResult.success("导出成功,表格目录为D:\\warehouse\\download\\admin");
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             //创建工作簿
@@ -170,12 +170,12 @@ public class CargoController extends AbstractBaseController<TbCargo,TbCargoServi
             }
 
             //判断文件夹是否存在
-            File file = new File("D:\\warehouse\\download");
+            File file = new File("D:\\warehouse\\download\\admin");
             if (!file.exists()){
                 file.mkdirs();
             }
             //导出数据
-            FileOutputStream fileOutputStream = new FileOutputStream("D:\\warehouse\\download\\货物信息表.xlsx");
+            FileOutputStream fileOutputStream = new FileOutputStream("D:\\warehouse\\download\\admin\\货物信息表.xlsx");
             xssfWorkbook.write(fileOutputStream);
 
             //释放资源
@@ -189,6 +189,78 @@ public class CargoController extends AbstractBaseController<TbCargo,TbCargoServi
             baseResult = BaseResult.fail("导出失败");
             model.addAttribute("baseResult",baseResult);
             return "cargo_list";
+        }
+    }
+
+    @RequestMapping(value = "user_export",method = RequestMethod.GET)
+    public String userExport(Model model){
+        List<TbCargo> tbCargos = service.selectAll();
+        BaseResult baseResult = BaseResult.success("导出成功,表格目录为D:\\warehouse\\download\\user");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            //创建工作簿
+            XSSFWorkbook xssfWorkbook = new XSSFWorkbook();
+            //创建工作表
+            XSSFSheet sheet = xssfWorkbook.createSheet("货物信息");
+            //创建行
+            XSSFRow row = sheet.createRow(0);
+            row.createCell(0).setCellValue("货物编号");
+            row.createCell(1).setCellValue("货物名称");
+            row.createCell(2).setCellValue("货物库存");
+            row.createCell(3).setCellValue("所属仓库");
+            row.createCell(4).setCellValue("最新入库数量");
+            row.createCell(5).setCellValue("最新入库时间");
+            row.createCell(6).setCellValue("最新出库数量");
+            row.createCell(7).setCellValue("最新出库时间");
+            row.createCell(8).setCellValue("创建时间");
+            row.createCell(9).setCellValue("更新时间");
+            for (int i=0;i<tbCargos.size();i++){
+                //自适应宽度
+                sheet.autoSizeColumn(i);
+                sheet.setColumnWidth(i, sheet.getColumnWidth(i)*17/10);
+                XSSFRow row1 = sheet.createRow(i + 1);
+                row1.createCell(0).setCellValue(tbCargos.get(i).getNumber());
+                row1.createCell(1).setCellValue(tbCargos.get(i).getName());
+                row1.createCell(2).setCellValue(tbCargos.get(i).getInventory());
+                row1.createCell(3).setCellValue(tbCargos.get(i).getParentId());
+                if (tbCargos.get(i).getEntryQuantity()==null){
+                    row1.createCell(4).setCellValue("");
+                    row1.createCell(5).setCellValue("");
+                }else {
+                    row1.createCell(4).setCellValue(tbCargos.get(i).getEntryQuantity());
+                    row1.createCell(5).setCellValue(simpleDateFormat.format(tbCargos.get(i).getEntryTime()));
+                }
+                if (tbCargos.get(i).getDeliveryQuantity()==null){
+                    row1.createCell(6).setCellValue("");
+                    row1.createCell(7).setCellValue("");
+                }else {
+                    row1.createCell(6).setCellValue(tbCargos.get(i).getDeliveryQuantity());
+                    row1.createCell(7).setCellValue(simpleDateFormat.format(tbCargos.get(i).getDeliveryTime()));
+                }
+                row1.createCell(8).setCellValue(simpleDateFormat.format(tbCargos.get(i).getCreated()));
+                row1.createCell(9).setCellValue(simpleDateFormat.format(tbCargos.get(i).getUpdated()));
+            }
+
+            //判断文件夹是否存在
+            File file = new File("D:\\warehouse\\download\\user");
+            if (!file.exists()){
+                file.mkdirs();
+            }
+            //导出数据
+            FileOutputStream fileOutputStream = new FileOutputStream("D:\\warehouse\\download\\user\\货物信息表.xlsx");
+            xssfWorkbook.write(fileOutputStream);
+
+            //释放资源
+            fileOutputStream.flush();
+            fileOutputStream.close();
+            xssfWorkbook.close();
+
+            model.addAttribute("baseResult",baseResult);
+            return "user_cargo_list";
+        } catch (IOException e) {
+            baseResult = BaseResult.fail("导出失败");
+            model.addAttribute("baseResult",baseResult);
+            return "user_cargo_list";
         }
     }
 }

@@ -195,4 +195,9 @@ public class TbCargoRecordServiceImpl implements TbCargoRecordService {
         }
         return baseResult;
     }
+
+    @Override
+    public List<TbCargoRecord> selectByHandlers(String handlers) {
+        return tbCargoRecordDao.selectByHandlers(handlers);
+    }
 }

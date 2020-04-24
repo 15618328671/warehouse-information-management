@@ -37,6 +37,7 @@
         <jackson.version>2.9.5</jackson.version>
         <lombok.version>1.18.8</lombok.version>
         <hibernate-validation.version>6.1.0.Final</hibernate-validation.version>
+        <poi.version>3.17</poi.version>
     </properties>
 
     <dependencyManagement>
@@ -186,6 +187,15 @@
                 <version>${jackson.version}</version>
             </dependency>
             <!-- Json End -->
+
+            <!-- Apache POI Begin -->
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <version>${poi.version}</version>
+            </dependency>
+            <!-- Apache POI End -->
+
         </dependencies>
     </dependencyManagement>
 

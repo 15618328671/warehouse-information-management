@@ -128,14 +128,26 @@ public class UserController extends AbstractBaseController<TbUser, TbUserService
     }
 
 
-
     @RequestMapping(value = "detail",method = RequestMethod.GET)
     public String detail(TbUser tbUser){
         return "user_detail";
     }
 
+    /**
+     * 个人信息界面
+     * @return
+     */
     @RequestMapping(value = "information",method = RequestMethod.GET)
     public String information(){
         return "user_information";
+    }
+
+    /**
+     * 跳转到用户货物查询界面
+     * @return
+     */
+    @RequestMapping(value = "cargo/list",method = RequestMethod.GET)
+    public String userCargoList(){
+        return "user_cargo_list";
     }
 }

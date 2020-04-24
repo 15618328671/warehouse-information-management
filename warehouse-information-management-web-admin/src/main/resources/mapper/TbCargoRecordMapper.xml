@@ -39,6 +39,9 @@
             <if test="tbCargoRecord.parentId != null and tbCargoRecord.parentId !=''">
                 AND c.parent_id LIKE CONCAT ('%',#{tbCargoRecord.parentId},'%')
             </if>
+            <if test="tbCargoRecord.handlers != null and tbCargoRecord.handlers !=''">
+                AND c.handlers = #{tbCargoRecord.handlers}
+            </if>
         </where>
         LIMIT #{start},#{length}
     </select>
@@ -56,6 +59,9 @@
             </if>
             <if test="parentId != null and parentId !=''">
                 AND c.parent_id LIKE CONCAT('%',#{parentId},'%')
+            </if>
+            <if test="handlers != null and handlers !=''">
+                AND c.handlers = #{handlers}
             </if>
         </where>
     </select>
@@ -116,5 +122,14 @@
             tb_cargo_record AS c
         WHERE
             c.id = #{id}
+    </select>
+
+    <select id="selectByHandlers" resultType="TbCargoRecord">
+        SELECT
+            <include refid="tbCargoRecordColumns"/>
+        FROM
+            tb_cargo_record as c
+        WHERE
+            c.handlers = #{handlers}
     </select>
 </mapper>
