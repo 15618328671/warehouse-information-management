@@ -1,6 +1,7 @@
 package com.zk.warehouse.information.management.web.admin.service;
 
 import com.zk.warehouse.information.management.commons.persistence.BaseService;
+import com.zk.warehouse.information.management.domain.TbAdministrator;
 import com.zk.warehouse.information.management.domain.TbUser;
 
 /**
@@ -22,4 +23,11 @@ public interface TbUserService extends BaseService<TbUser> {
      * @return
      */
     TbUser login(String username, String password);
+
+    /**
+     * 根据用户名获取用户信息
+     * @param username
+     * @return
+     */
+    TbUser getByUsername(String username);
 }

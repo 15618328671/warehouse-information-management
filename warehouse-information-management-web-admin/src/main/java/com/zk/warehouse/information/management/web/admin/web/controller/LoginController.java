@@ -60,18 +60,17 @@ public class LoginController {
             TbAdministrator administrator = (TbAdministrator) httpServletRequest.getSession().getAttribute(ConstantUtils.SESSION_ADMINISTRATOR);
             TbUser user = (TbUser) httpServletRequest.getSession().getAttribute(ConstantUtils.SESSION_USER);
             //已有管理员登陆
-            if (administrator != null && tbAdministrator != null){
+            if (administrator != null && tbAdministrator != null) {
                 //返回管理员界面
                 httpServletRequest.setAttribute("message", "已有管理员登录，请退出后重试");
                 return login(httpServletRequest);
             }
             //已有用户存在
-            if (user != null && tbUser != null){
+            if (user != null && tbUser != null) {
                 //返回用户界面
                 httpServletRequest.setAttribute("message", "已有用户登录，请退出后重试");
                 return login(httpServletRequest);
-            }
-            else {
+            } else {
                 //记住我，存放7天
                 if (isRemember) {
                     CookieUtils.setCookie(httpServletRequest, httpServletResponse, ConstantUtils.COOKIE_NAME_INFO, String.format("%s:%s", username, password), 7 * 24 * 60 * 60);

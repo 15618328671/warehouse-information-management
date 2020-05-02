@@ -45,6 +45,12 @@
                                         ${baseResult.message}
                                 </div>
                             </c:if>
+                            <c:if test="${baseResult.status == 500}">
+                                <div class="alert alert-danger alert-dismissible">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                        ${baseResult.message}
+                                </div>
+                            </c:if>
 
                             <div class="box-body">
                                 <a href="/cargo/record/export" type="button" class="btn btn-sm btn-default "><i class="fa fa-download"></i>导出</a>
@@ -166,7 +172,7 @@
                     var _detailUrl = "/cargo/record/detail?id="+row.id;
                     var _deleteUrl = "/cargo/record/delete?ids="+row.id;
                     return '<button type="button" class="btn btn-sm btn-default" onclick="App.searchDetail(\''+_detailUrl+'\')"><i class="fa fa-search"></i> 查看</button>&nbsp;&nbsp;&nbsp;'
-                        +'<a href="#" type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> 评论</a>&nbsp;&nbsp;&nbsp;'
+                        +'<a href="/cargo/record/comment?id='+row.id+'" type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> 评论</a>&nbsp;&nbsp;&nbsp;'
                         +'<button type="button" class="btn btn-sm btn-danger" onclick="App.delete(\''+_deleteUrl+'\')"><i class="fa fa-trash-o"></i> 删除</button> '
                 }
             }

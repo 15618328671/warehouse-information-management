@@ -89,5 +89,11 @@
         </dependency>
         <!-- Apache POI End -->
 
+        <!-- Apache Commons Email Begin -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-email</artifactId>
+        </dependency>
+        <!-- Apache Commons Email End -->
     </dependencies>
 </project>

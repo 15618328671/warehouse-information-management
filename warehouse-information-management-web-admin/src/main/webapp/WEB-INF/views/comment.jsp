@@ -5,8 +5,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>兴仁农贸市场果菜仓库信息管理系统 | 出库</title>
+    <title>兴仁农贸市场果菜仓库信息管理系统 | 货物管理</title>
     <jsp:include page="../includes/header.jsp"/>
+    <link rel="stylesheet" href="../../static/assets/plugins/wangEditor/wangEditor.min.css"/>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -21,12 +22,12 @@
         <!-- 文本头 -->
         <section class="content-header">
             <h1>
-                内容管理
+                用户管理
                 <small></small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="/main"><i class="fa fa-dashboard"></i> 首页</a></li>
-                <li class="active">出库</li>
+                <li class="active">${tbCargoRecord.comment == null || tbCargoRecord.comment ==''?"添加":"修改"}评论</li>
             </ol>
         </section>
 
@@ -37,7 +38,7 @@
                     <!-- 水平表单 -->
                     <div class="box box-info">
                         <div class="box-header with-border">
-                            <h3 class="box-title">出库</h3>
+                            <h3 class="box-title">${tbCargoRecord.comment == null || tbCargoRecord.comment ==''?"添加":"修改"}评论</h3>
                             <c:if test="${baseResult.status == 500}">
                                 <div class="alert alert-danger alert-dismissible">
                                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -47,48 +48,22 @@
                         </div>
                         <!-- /.box-header -->
                         <!-- form start -->
-                        <form:form id="inputForm" cssClass="form-horizontal" action="/cargo/record/deliverySave" method="post" modelAttribute="tbCargoRecord">
+                        <form:form id="inputForm" cssClass="form-horizontal" action="/cargo/record/comment_save" method="post" modelAttribute="tbCargoRecord">
                             <form:hidden path="id"/>
                             <div class="box-body">
                                 <div class="form-group">
-                                    <label for="name" class="col-sm-2 control-label">所属仓库</label>
-
+                                    <label class="col-sm-2 control-label">评论</label>
                                     <div class="col-sm-10">
-                                        <form:input path="parentId" cssClass="form-control required" readonly="true"/>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="name" class="col-sm-2 control-label">货物名</label>
-
-                                    <div class="col-sm-10">
-                                        <form:input path="name" cssClass="form-control required" readonly="true"/>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="number" class="col-sm-2 control-label">货物编号</label>
-
-                                    <div class="col-sm-10">
-                                        <form:input path="number" cssClass="form-control required" readonly="true"/>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">入库数量</label>
-
-                                    <div class="col-sm-10">
-                                        <form:input path="deliveryQuantity" cssClass="form-control required" placeholder="请输入入库数量"/>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">操作人员</label>
-
-                                    <div class="col-sm-10">
-                                        <form:input path="handlers" cssClass="form-control required" value="${administrator.username}" readonly="true"/>
+                                        <form:hidden path="comment"/>
+                                        <div id="editor">
+                                            ${tbCargoRecord.comment}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="box-footer">
                                 <button type="button" class="btn btn-default" onclick="history.go(-1)">返回</button>
-                                <button type="submit" class="btn btn-info pull-right">提交</button>
+                                <button id="editSubmit" type="submit" class="btn btn-info pull-right">提交</button>
                             </div>
                         </form:form>
                     </div>
@@ -99,9 +74,22 @@
 
     <!-- 底部版权 -->
     <jsp:include page="../includes/copyright.jsp"/>
+    <script src="../../static/assets/plugins/wangEditor/wangEditor.min.js"></script>
 </div>
-
 <jsp:include page="../includes/footer.jsp"/>
+
+<script>
+    $(function () {
+        var E = window.wangEditor;
+        var editor = new E('#editor');
+        editor.create();
+
+        $("#editSubmit").bind("click",function () {
+            var commentHtml = editor.txt.html();
+            $("#comment").val(commentHtml);
+        });
+    });
+</script>
+
 </body>
 </html>
-

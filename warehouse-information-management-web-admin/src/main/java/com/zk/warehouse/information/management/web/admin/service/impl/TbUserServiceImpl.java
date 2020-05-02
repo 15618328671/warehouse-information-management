@@ -124,7 +124,12 @@ public class TbUserServiceImpl implements TbUserService {
                 return tbUser;
             }
         }
-        return tbUser;
+        return null;
+    }
+
+    @Override
+    public TbUser getByUsername(String username) {
+        return tbUserDao.getByUsername(username);
     }
 
     /**

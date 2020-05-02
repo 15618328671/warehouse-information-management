@@ -1,5 +1,6 @@
 package com.zk.warehouse.information.management.web.admin.service;
 
+import com.zk.warehouse.information.management.commons.dto.BaseResult;
 import com.zk.warehouse.information.management.commons.persistence.BaseService;
 import com.zk.warehouse.information.management.domain.TbCargoRecord;
 
@@ -16,4 +17,11 @@ public interface TbCargoRecordService extends BaseService<TbCargoRecord> {
      * @return
      */
     List<TbCargoRecord> selectByHandlers(String handlers);
+
+    /**
+     * 更新评论
+     * @param tbCargoRecord
+     * @return
+     */
+    void update(TbCargoRecord tbCargoRecord);
 }

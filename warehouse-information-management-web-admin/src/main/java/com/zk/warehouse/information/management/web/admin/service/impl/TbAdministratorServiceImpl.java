@@ -42,7 +42,12 @@ public class TbAdministratorServiceImpl implements TbAdministratorService {
                 return tbAdministrator;
             }
         }
-        return tbAdministrator;
+        return null;
+    }
+
+    @Override
+    public TbAdministrator getByUsername(String username) {
+        return tbAdministratorDao.getByUsername(username);
     }
 
     @Override

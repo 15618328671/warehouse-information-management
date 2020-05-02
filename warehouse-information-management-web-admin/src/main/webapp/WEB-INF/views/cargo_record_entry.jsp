@@ -54,24 +54,21 @@
                                     <label for="name" class="col-sm-2 control-label">所属仓库</label>
 
                                     <div class="col-sm-10">
-                                        <form:select cssClass="form-control" path="parentId">
-                                            <form:option value="NONE" label="请选择"/>
-                                            <form:options cssClass="required" items="${name}"/>
-                                        </form:select>
+                                        <form:input path="parentId" cssClass="form-control required" readonly="true"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="name" class="col-sm-2 control-label">货物名</label>
 
                                     <div class="col-sm-10">
-                                        <form:input path="name" cssClass="form-control required" placeholder="请输入货物名称"/>
+                                        <form:input path="name" cssClass="form-control required" readonly="true"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="number" class="col-sm-2 control-label">货物编号</label>
 
                                     <div class="col-sm-10">
-                                        <form:input path="number" cssClass="form-control required" placeholder="请输入货物编号"/>
+                                        <form:input path="number" cssClass="form-control required" readonly="true"/>
                                     </div>
                                 </div>
                                 <div class="form-group">

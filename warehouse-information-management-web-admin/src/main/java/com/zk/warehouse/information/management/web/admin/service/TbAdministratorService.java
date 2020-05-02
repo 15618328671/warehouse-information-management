@@ -15,4 +15,11 @@ public interface TbAdministratorService extends BaseService<TbAdministrator> {
      * @return
      */
     TbAdministrator login(String username,String password);
+
+    /**
+     * 根据用户名获取用户信息
+     * @param username
+     * @return
+     */
+    TbAdministrator getByUsername(String username);
 }

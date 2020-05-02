@@ -38,6 +38,7 @@
         <lombok.version>1.18.8</lombok.version>
         <hibernate-validation.version>6.1.0.Final</hibernate-validation.version>
         <poi.version>3.17</poi.version>
+        <commons-email.version>1.5</commons-email.version>
     </properties>
 
     <dependencyManagement>
@@ -195,6 +196,14 @@
                 <version>${poi.version}</version>
             </dependency>
             <!-- Apache POI End -->
+
+            <!-- Apache Commons Email Begin -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-email</artifactId>
+                <version>${commons-email.version}</version>
+            </dependency>
+            <!-- Apache Commons Email End -->
 
         </dependencies>
     </dependencyManagement>

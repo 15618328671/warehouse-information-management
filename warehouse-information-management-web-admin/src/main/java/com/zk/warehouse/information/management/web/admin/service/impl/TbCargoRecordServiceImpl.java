@@ -200,4 +200,11 @@ public class TbCargoRecordServiceImpl implements TbCargoRecordService {
     public List<TbCargoRecord> selectByHandlers(String handlers) {
         return tbCargoRecordDao.selectByHandlers(handlers);
     }
+
+    @Override
+    @Transactional(readOnly = false)
+    public void update(TbCargoRecord tbCargoRecord) {
+        tbCargoRecordDao.update(tbCargoRecord);
+    }
+
 }

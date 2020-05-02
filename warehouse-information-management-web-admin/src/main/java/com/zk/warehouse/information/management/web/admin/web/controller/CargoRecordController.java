@@ -4,12 +4,19 @@ import com.sun.deploy.net.HttpResponse;
 import com.zk.warehouse.information.management.commons.constant.ConstantUtils;
 import com.zk.warehouse.information.management.commons.dto.BaseResult;
 import com.zk.warehouse.information.management.commons.dto.PageInfo;
+import com.zk.warehouse.information.management.domain.TbAdministrator;
 import com.zk.warehouse.information.management.domain.TbCargo;
 import com.zk.warehouse.information.management.domain.TbCargoRecord;
 import com.zk.warehouse.information.management.domain.TbUser;
 import com.zk.warehouse.information.management.web.admin.abstracts.AbstractBaseController;
+import com.zk.warehouse.information.management.web.admin.service.TbAdministratorService;
 import com.zk.warehouse.information.management.web.admin.service.TbCargoRecordService;
+import com.zk.warehouse.information.management.web.admin.service.TbUserService;
 import com.zk.warehouse.information.management.web.admin.service.TbWarehouseService;
+import org.apache.commons.mail.DefaultAuthenticator;
+import org.apache.commons.mail.Email;
+import org.apache.commons.mail.EmailException;
+import org.apache.commons.mail.SimpleEmail;
 import org.apache.poi.ss.formula.functions.T;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -36,6 +43,12 @@ import java.util.List;
 public class CargoRecordController extends AbstractBaseController<TbCargoRecord,TbCargoRecordService> {
     @Autowired
     private TbWarehouseService tbWarehouseService;
+
+    @Autowired
+    private TbAdministratorService tbAdministratorService;
+
+    @Autowired
+    private TbUserService tbUserService;
 
     @ModelAttribute
     public TbCargoRecord getTbCargoRecordById(Long id){
@@ -370,5 +383,53 @@ public class CargoRecordController extends AbstractBaseController<TbCargoRecord,
         PageInfo<TbCargoRecord> pageInfo = service.page(start, length, draw,tbCargoRecord);
 
         return pageInfo;
+    }
+
+    @RequestMapping(value = "comment",method = RequestMethod.GET)
+    public String comment(){
+        return "comment";
+    }
+
+    @RequestMapping(value = "comment_save",method = RequestMethod.POST)
+    public String commentSave(TbCargoRecord tbCargoRecord,Model model,RedirectAttributes redirectAttributes){
+        //提交评论
+        service.update(tbCargoRecord);
+        TbAdministrator administrator = tbAdministratorService.getByUsername(tbCargoRecord.getHandlers());
+        TbUser user = tbUserService.getByUsername(tbCargoRecord.getHandlers());
+        BaseResult baseResult = null;
+        String emailAddress = null;
+        if (administrator != null){
+            emailAddress = administrator.getEmail();
+        }else if (user != null){
+            emailAddress = user.getEmail();
+        }
+        //用户存在
+        if (administrator !=null || user != null){
+            try {
+                //发送邮件
+                Email email = new SimpleEmail();
+                email.setHostName("smtp.qq.com");
+                email.setSmtpPort(465);
+                email.setAuthenticator(new DefaultAuthenticator("1214159039@qq.com", "sxjqurypcskchahb"));
+                email.setSSLOnConnect(true);
+                email.setFrom("1214159039@qq.com");
+                email.setSubject("货物订单评论");
+                email.setMsg("管理员对你的订单"+tbCargoRecord.getId()+"给予评价，请及时查看");
+                email.addTo(emailAddress);
+                email.send();
+                //邮件发送成功
+                baseResult = BaseResult.success("评论成功，并发出邮件提示");
+                redirectAttributes.addFlashAttribute("baseResult",baseResult);
+                return "redirect:/cargo/record/list";
+            } catch (EmailException e) {
+                baseResult = BaseResult.fail("邮箱发送失败");
+                model.addAttribute("baseResult",baseResult);
+                return "cargo_record_list";
+            }
+        }else {
+            baseResult = BaseResult.success("评论成功");
+            redirectAttributes.addFlashAttribute("baseResult",baseResult);
+            return "redirect:/cargo/record/list";
+        }
     }
 }

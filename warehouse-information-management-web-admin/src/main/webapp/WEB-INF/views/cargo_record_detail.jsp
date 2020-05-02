@@ -13,6 +13,10 @@
         <thead></thead>
         <tbody>
         <tr>
+            <td>订单号：</td>
+            <td>${tbCargoRecord.id}</td>
+        </tr>
+        <tr>
             <td>货物名：</td>
             <td>${tbCargoRecord.name}</td>
         </tr>
@@ -49,12 +53,8 @@
             </tr>
         </c:if>
         <tr>
-            <td>创建时间：</td>
-            <td><fmt:formatDate value="${tbCargoRecord.created}" pattern="yyyy-MM-dd HH:mm:ss"/> </td>
-        </tr>
-        <tr>
-            <td>更新时间：</td>
-            <td><fmt:formatDate value="${tbCargoRecord.updated}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+            <td>评论：</td>
+            <td>${tbCargoRecord.comment}</td>
         </tr>
         <tr>
             <td>操作人员：</td>
