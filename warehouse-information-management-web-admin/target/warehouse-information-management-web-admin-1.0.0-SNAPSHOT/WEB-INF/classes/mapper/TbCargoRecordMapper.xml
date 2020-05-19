@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zk.warehouse.information.management.web.admin.dao.TbCargoRecordDao">
+    <sql id="tbCargoRecordColumns">
+        c.id,
+        c.name,
+        c.number,
+        c.inventory,
+        c.parent_id,
+        c.created,
+        c.updated,
+        c.entry_quantity,
+        c.entry_time,
+        c.delivery_quantity,
+        c.delivery_time,
+        c.handlers,
+        c.comment
+    </sql>
+
+    <select id="selectAll" resultType="TbCargoRecord">
+        SELECT
+        <include refid="tbCargoRecordColumns"/>
+        FROM
+        tb_cargo_record as c
+    </select>
+
+    <select id="page" resultType="TbCargoRecord" parameterType="map">
+        SELECT
+        <include refid="tbCargoRecordColumns"/>
+        FROM
+        tb_cargo_record AS c
+        <where>
+            <if test="tbCargoRecord.name != null and tbCargoRecord.name !=''">
+                AND c.name LIKE CONCAT ('%',#{tbCargoRecord.name},'%')
+            </if>
+            <if test="tbCargoRecord.number != null and tbCargoRecord.number !=''">
+                AND c.number LIKE CONCAT ('%',#{tbCargoRecord.number},'%')
+            </if>
+            <if test="tbCargoRecord.parentId != null and tbCargoRecord.parentId !=''">
+                AND c.parent_id LIKE CONCAT ('%',#{tbCargoRecord.parentId},'%')
+            </if>
+            <if test="tbCargoRecord.handlers != null and tbCargoRecord.handlers !=''">
+                AND c.handlers = #{tbCargoRecord.handlers}
+            </if>
+        </where>
+        LIMIT #{start},#{length}
+    </select>
+
+    <select id="count" resultType="integer">
+        SELECT COUNT(*)
+        FROM
+        tb_cargo_record as c
+        <where>
+            <if test="name != null and name !=''">
+                AND c.name LIKE CONCAT('%',#{name},'%')
+            </if>
+            <if test="number != null and number !=''">
+                AND c.number LIKE CONCAT('%',#{number},'%')
+            </if>
+            <if test="parentId != null and parentId !=''">
+                AND c.parent_id LIKE CONCAT('%',#{parentId},'%')
+            </if>
+            <if test="handlers != null and handlers !=''">
+                AND c.handlers = #{handlers}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insert">
+        INSERT INTO tb_cargo_record(
+            id,
+            name,
+            number,
+            inventory,
+            parent_id,
+            created,
+            updated,
+            entry_quantity,
+            entry_time,
+            delivery_quantity,
+            delivery_time,
+            handlers,
+            comment
+        )
+        VALUES (
+            #{id},
+            #{name},
+            #{number},
+            #{inventory},
+            #{parentId},
+            #{created},
+            #{updated},
+            #{entryQuantity},
+            #{entryTime},
+            #{deliveryQuantity},
+            #{deliveryTime},
+            #{handlers},
+            #{comment}
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE
+            tb_cargo_record
+        SET
+            inventory = #{inventory},
+            updated = #{updated},
+            entry_quantity = #{entryQuantity},
+            entry_time = #{entryTime},
+            delivery_quantity = #{deliveryQuantity},
+            delivery_time = #{deliveryTime},
+            handlers = #{handlers},
+            comment = #{comment}
+        WHERE
+            id = #{id}
+    </update>
+
+    <select id="getById" resultType="TbCargoRecord">
+        SELECT
+            <include refid="tbCargoRecordColumns"/>
+        FROM
+            tb_cargo_record AS c
+        WHERE
+            c.id = #{id}
+    </select>
+
+    <select id="selectByHandlers" resultType="TbCargoRecord">
+        SELECT
+            <include refid="tbCargoRecordColumns"/>
+        FROM
+            tb_cargo_record as c
+        WHERE
+            c.handlers = #{handlers}
+    </select>
+</mapper>
