@@ -52,8 +52,8 @@
                             <form:hidden path="id"/>
                             <div class="box-body">
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">评论</label>
-                                    <div class="col-sm-10">
+                                    <label class="col-sm-1 control-label">评论</label>
+                                    <div class="col-sm-11">
                                         <form:hidden path="comment"/>
                                         <div id="editor">
                                             ${tbCargoRecord.comment}

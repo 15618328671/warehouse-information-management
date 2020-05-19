@@ -176,7 +176,7 @@ public class CargoRecordController extends AbstractBaseController<TbCargoRecord,
         //保存成功
         if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS){
             redirectAttributes.addFlashAttribute("baseResult",baseResult);
-            return "redirect:/user/cargo/record/list";
+            return "redirect:/cargo/record/user_list";
         }
         //保存失败
         else {
@@ -193,7 +193,7 @@ public class CargoRecordController extends AbstractBaseController<TbCargoRecord,
         //保存成功
         if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS){
             redirectAttributes.addFlashAttribute("baseResult",baseResult);
-            return "redirect:/user/cargo/record/list";
+            return "redirect:/cargo/record/user_list";
         }
         //保存失败
         else {
@@ -405,26 +405,32 @@ public class CargoRecordController extends AbstractBaseController<TbCargoRecord,
         }
         //用户存在
         if (administrator !=null || user != null){
-            try {
-                //发送邮件
-                Email email = new SimpleEmail();
-                email.setHostName("smtp.qq.com");
-                email.setSmtpPort(465);
-                email.setAuthenticator(new DefaultAuthenticator("1214159039@qq.com", "sxjqurypcskchahb"));
-                email.setSSLOnConnect(true);
-                email.setFrom("1214159039@qq.com");
-                email.setSubject("货物订单评论");
-                email.setMsg("管理员对你的订单"+tbCargoRecord.getId()+"给予评价，请及时查看");
-                email.addTo(emailAddress);
-                email.send();
-                //邮件发送成功
-                baseResult = BaseResult.success("评论成功，并发出邮件提示");
+            if(emailAddress != null) {
+                try {
+                    //发送邮件
+                    Email email = new SimpleEmail();
+                    email.setHostName("smtp.qq.com");
+                    email.setSmtpPort(465);
+                    email.setAuthenticator(new DefaultAuthenticator("1214159039@qq.com", "sxjqurypcskchahb"));
+                    email.setSSLOnConnect(true);
+                    email.setFrom("1214159039@qq.com");
+                    email.setSubject("货物订单评论");
+                    email.setMsg("管理员对你的订单" + tbCargoRecord.getId() + "给予评价，请及时查看");
+                    email.addTo(emailAddress);
+                    email.send();
+                    //邮件发送成功
+                    baseResult = BaseResult.success("评论成功，并发出邮件提示");
+                    redirectAttributes.addFlashAttribute("baseResult", baseResult);
+                    return "redirect:/cargo/record/list";
+                } catch (EmailException e) {
+                    baseResult = BaseResult.fail("邮箱发送失败");
+                    model.addAttribute("baseResult", baseResult);
+                    return "cargo_record_list";
+                }
+            }else {
+                baseResult = BaseResult.success("评论成功");
                 redirectAttributes.addFlashAttribute("baseResult",baseResult);
                 return "redirect:/cargo/record/list";
-            } catch (EmailException e) {
-                baseResult = BaseResult.fail("邮箱发送失败");
-                model.addAttribute("baseResult",baseResult);
-                return "cargo_record_list";
             }
         }else {
             baseResult = BaseResult.success("评论成功");

@@ -54,7 +54,7 @@
                                 <label for="username" class="col-sm-2 control-label">用户名</label>
 
                                 <div class="col-sm-10">
-                                    <form:input path="username" cssClass="form-control required" readonly="true"/>
+                                    <form:input path="username" cssClass="form-control required"/>
                                 </div>
                             </div>
                                 <div class="form-group">

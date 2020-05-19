@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface BaseService<T extends BaseEntity> {
     /**
-     * 查询所有管理员信息
+     * 查询所有信息
      * @return
      */
     List<T> selectAll();
