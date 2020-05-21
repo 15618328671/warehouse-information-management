@@ -1,0 +1,5 @@
+com\zk\warehouse\information\management\domain\TbUser.class
+com\zk\warehouse\information\management\domain\TbAdministrator.class
+com\zk\warehouse\information\management\domain\TbCargoRecord.class
+com\zk\warehouse\information\management\domain\TbCargo.class
+com\zk\warehouse\information\management\domain\TbWarehouse.class
