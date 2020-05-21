@@ -1,11 +1,9 @@
 package com.zk.warehouse.information.management.web.admin.web.controller;
 
-import com.sun.deploy.net.HttpResponse;
 import com.zk.warehouse.information.management.commons.constant.ConstantUtils;
 import com.zk.warehouse.information.management.commons.dto.BaseResult;
 import com.zk.warehouse.information.management.commons.dto.PageInfo;
 import com.zk.warehouse.information.management.domain.TbAdministrator;
-import com.zk.warehouse.information.management.domain.TbCargo;
 import com.zk.warehouse.information.management.domain.TbCargoRecord;
 import com.zk.warehouse.information.management.domain.TbUser;
 import com.zk.warehouse.information.management.web.admin.abstracts.AbstractBaseController;
@@ -17,7 +15,6 @@ import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
-import org.apache.poi.ss.formula.functions.T;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -31,7 +28,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
